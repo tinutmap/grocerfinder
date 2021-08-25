@@ -139,5 +139,5 @@ dmypy.json
 cython_debug/
 
 # zip file
-.7z
-.zip
+*.7z
+*.zip
