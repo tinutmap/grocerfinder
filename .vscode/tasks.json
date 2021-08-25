@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "serve",
+            "problemMatcher": [],
+            "label": "npm: serve task",
+            "detail": "vue-cli-service serve",
+            "options": {
+                "cwd": "${workspaceFolder}\\grocerfinder_root\\vueapps\\grocerfinder\\"
+            }
+        }
+    ]
+}

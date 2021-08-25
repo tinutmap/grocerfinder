@@ -1,0 +1,141 @@
+'''
+Bunny hills to test graphene best practices
+Material from
+ https://medium.com/@don.skoy.333/year-of-adventures-with-graphene-533ef9b8c0b0
+
+'''
+import graphene
+from graphene_django import DjangoObjectType
+
+from .models import Item
+
+###############################################################################
+# Base Classes
+
+
+class MutationPayLoad(graphene.ObjectType):
+    ok = graphene.Boolean(required=True)
+    errors = graphene.List(graphene.String)
+    query = graphene.Field('grocerfinder.schema.Query', required=True)
+
+    def resolve_ok(self, info):
+        return len(self.errors or []) == 0
+
+    def resolve_errros(self, info):
+        return self.errors or []
+
+    def resolve_query(self, info):
+        return {}
+###############################################################################
+# Item schema
+
+
+class ItemType(DjangoObjectType):
+    class Meta:
+        model = Item
+        fields = ('id', 'name', 'sku', 'upc', 'image', 'category',
+                  'price', 'uom', 'pack_qty', 'datetime_updated')
+
+
+class ItemInputType(graphene.InputObjectType):
+    name = graphene.String(required=True)
+    category = graphene.String(required=True)
+    price = graphene.Decimal(required=True)
+
+
+class ItemCreateMutation(graphene.Mutation):
+    class Arguments:
+        # id = graphene.ID(required=True)
+        input = ItemInputType(required=True)
+
+    ok = graphene.Boolean()
+
+    @classmethod
+    def mutate(cls, parent, info, input):
+        item = Item(**input.__dict__)
+        item.save()
+        ok = True
+        return ItemCreateMutation(ok=ok)
+
+
+class ItemUpdateMutation(MutationPayLoad, graphene.Mutation):
+    class Arguments:
+        input = ItemInputType(required=True)
+
+    # ok = graphene.Boolean()
+
+    @classmethod
+    def mutate(cls, parent, info, input):
+        errors = []
+        id = int(info.variable_values['id'])
+        try:
+            item = Item.objects.get(pk=id)
+        except:
+            return None
+
+        if not errors:
+            item.__dict__.update(**input)
+            item.save()
+        return ItemUpdateMutation(errors=errors)
+
+
+class ItemMutationRoot(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+        action = graphene.String(required=True)
+
+    # create = ItemCreateMutation.Field()
+    update = ItemUpdateMutation.Field()
+
+    @classmethod
+    def mutate(cls, parent, context, id, action):
+        if action == "update":
+            return ItemUpdateMutation()
+        elif action == "create":
+            return ItemCreateMutation()
+        else:
+            return None
+
+###############################################################################
+# Query and Mutation
+
+
+class Query(graphene.ObjectType):
+    all_items = graphene.List(ItemType)
+    item_by_id = graphene.Field(ItemType, id=graphene.ID(required=True))
+
+    def resolve_all_items(parent, info):
+        return Item.objects.all().order_by('id')
+
+    def resolve_item_by_id(parent, info, id):
+        return Item.objects.get(pk=id)
+
+
+class Mutation(graphene.ObjectType):
+    updateItem = ItemMutationRoot.Field()
+    createItem = ItemMutationRoot.Field()
+
+
+'''
+Below is the query used for the schema above:
+
+mutation abc ($id: ID!, $action: String!, $input: ItemInputType!) {
+  updateItem (id: $id, action: $action) {
+    update (input: $input) {
+      ok
+      errors
+      query {
+  			allItems {
+    			id
+    			name
+    			price
+    			category {
+      			id
+      			name
+    			}
+  			}
+			}
+    }
+  }
+}
+'''

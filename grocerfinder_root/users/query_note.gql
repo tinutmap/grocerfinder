@@ -1,0 +1,50 @@
+# Authenticate User and obtain JWT
+mutation token_auth($username: String!, $password: String!) {
+  token_auth(username: $username, password: $password) {
+    token
+    payload
+    refresh_expires_in
+  }
+}
+#Variables
+{
+  "username": "user1",
+  "password": "user1"
+}
+
+
+# Validate the token and obtain the token payload:
+mutation verify_token($token: String!) {
+  verify_token(token: $token) {
+    payload
+  }
+}
+# Variables
+"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZXhwIjoxNjI0Mzc2Mjc4LCJvcmlnSWF0IjoxNjI0Mzc1OTc4fQ.rzC2cIQa6_6m0k8t8s4CtSyxlUMYmx96oJ4MrvLXO6Q"
+
+# Query without token argument
+query {
+  me {
+    username
+    password
+    email
+  }
+}
+
+# Header:
+X-CSRFTOKEN: UcM6OSyCB3akIMfLhx9CsEbyNub3uOIDFMmqQVpPrn83iJMpoZcCI3PqwgxMnAJi
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZXhwIjoxNjI0MzA4MzM2LCJvcmlnSWF0IjoxNjI0MzA4MDM2fQ.MSyHkvM2Y7NuTR4up_IB3JGJwFbHPgZGDd3J-yekyG4
+
+
+# Query with token argument
+query ($token: String!) {
+  me (token: $token) {
+    username
+    password
+    email
+  }
+}
+# Variables
+{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZXhwIjoxNjI0MzA4MzM2LCJvcmlnSWF0IjoxNjI0MzA4MDM2fQ.MSyHkvM2Y7NuTR4up_IB3JGJwFbHPgZGDd3J-yekyG4"
+}

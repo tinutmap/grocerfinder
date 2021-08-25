@@ -1,0 +1,61 @@
+# create new catergory with name: "new_cat2"
+mutation {
+  createCategory(categoryName: "new_cat2") {
+    category {
+      id
+      name
+      datetimeUpdated
+    }
+  }
+}
+
+# update category with id 4 to name: "cat_5555"
+mutation updateCategory($id: ID!, $name: String!){
+  updateCategory(categoryId: $id, name: $name) {
+    category {
+      id
+      name
+      datetimeUpdated
+    }
+  }
+}
+# variable
+{
+  "id": 4,
+  "name": "cat_5555"
+}
+
+# delete category with id == 4
+mutation deleteCategory($id: ID!) {
+  deleteCategory(id: $id) {
+    ok
+  }
+}
+# variable
+{
+  "id": 4
+}
+
+# query category with blank name -- show all category: "new_cat2222"
+query {
+  categoriesContainsName(name: "") {
+    id
+    name
+    datetimeUpdated
+  }
+}
+
+# script for console
+from aldi.schema import CategoryType, MutateCreate, Category
+a = MutateCreate(Type=CategoryType, model_name=Category)
+a.mutate(root,info,self,'new_cat_by_class_console')
+
+    //<div>
+    //  <span>Category Name:</span><input type="text" v-model="name">
+    //  <button @click="create_category">Add</button>
+    //</div>
+
+    <div>
+      <span>Category Name:</span><input type="text" v-model="CategoryAtr.name">
+      <button @click="create_category">Add</button>
+    </div>
