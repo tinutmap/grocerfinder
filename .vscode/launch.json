@@ -13,6 +13,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\grocerfinder_root\\manage.py",
+            "args": [
+                "runserver",
+                "0.0.0.0:8000"
+            ],
+            "django": true
+        },
+        {
             "command": "npm run serve",
             "name": "Run npm serve",
             "request": "launch",
@@ -27,22 +38,17 @@
             "webRoot": "${workspaceFolder}\\grocerfinder_root\\vueapps\\grocerfinder\\src",
             "breakOnLoad": true,
             "sourceMapPathOverrides": {
-                "webpack:///src/*": "${webRoot}/*"
+                "webpack:///src/*": "${webRoot}/*",
+                "webpack:///./src/*": "${webRoot}/*",
+
             },
-            // "preLaunchTask": "npm: serve task"
-        },
-        {
-            "name": "Python: Django",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}\\grocerfinder_root\\manage.py",
-            "args": [
-                "runserver",
-                // "--insecure",
-                // "--noreload",
-                "0.0.0.0:8000"
-            ],
-            "django": true
+            "preLaunchTask": "npm: serve"
         }
-    ]
+    ],
+    "compounds": [
+        {
+            "name": "Run both-ends",
+            "configurations": ["Python: Django","vuejs: Chrome", ]
+        }
+    ],
 }

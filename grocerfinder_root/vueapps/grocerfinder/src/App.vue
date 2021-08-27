@@ -5,6 +5,9 @@
       <router-link to="/">
         <h1>Grocerfinder Home</h1>
       </router-link>
+          <router-link to="/category">
+        <h2>Category</h2>
+      </router-link>
       {{ userIdentity || "Guest" }}
       <div v-if="!userIdentity">
         <router-link to="/login/">Login</router-link>

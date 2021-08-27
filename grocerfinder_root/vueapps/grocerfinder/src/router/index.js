@@ -4,7 +4,7 @@ import AllItems from '../views/AllItems.vue'
 import ItemById from '../views/ItemById.vue'
 import CategoryAll from '../views/CategoryAll.vue'
 import CategoryById from '../views/CategoryById.vue'
-import NotFound404 from '@/NotFound404.vue'
+import NotFound404 from '../views/NotFound404.vue'
 
 const routes = [
   {
@@ -22,7 +22,8 @@ const routes = [
   { path: '/category', component: CategoryAll },
   { path: '/category/:id', component: CategoryById },
   { path: '/notFound404', name: 'notFound404', component: NotFound404 },
-  { path: '*', component: NotFound404 }
+  // https://next.router.vuejs.org/guide/migration/#removed-star-or-catch-all-routes
+  { path: '/:pathMatch(.*)*', name: 'notFound404', component: NotFound404 }
 
 ]
 

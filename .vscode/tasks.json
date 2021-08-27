@@ -1,15 +1,21 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "npm",
-            "script": "serve",
-            "problemMatcher": [],
-            "label": "npm: serve task",
-            "detail": "vue-cli-service serve",
-            "options": {
-                "cwd": "${workspaceFolder}\\grocerfinder_root\\vueapps\\grocerfinder\\"
-            }
-        }
-    ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "serve",
+			"problemMatcher": [{
+				"base": "$tsc-watch",
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "Starting development server",
+					"endsPattern": " run npm run build."
+				}
+			}],
+			"label": "npm: serve",
+			"detail": "vue-cli-service serve",
+			"path": "\\grocerfinder_root\\vueapps\\grocerfinder\\",
+			"isBackground": true
+		}
+	]
 }

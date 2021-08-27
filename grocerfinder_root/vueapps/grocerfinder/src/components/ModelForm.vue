@@ -32,7 +32,8 @@
         type="text"
         required
         :id="'field-' + key"
-        v-model.trim="formData[key]"
+        :value="formData[key]"
+        @input="$emit('update:formData', key, $event.target.value)"
         class="form-control"
         v-bind:class="{ 'is-invalid': fieldErrors[key] }"
       />
@@ -41,13 +42,15 @@
         type="number"
         required
         :id="'field-' + key"
-        v-model.number="formData[key]"
+        :value="formData[key]"
+        @input="$emit('update:formData', key, $event.target.value)"
         class="form-control"
         v-bind:class="{ 'is-invalid': fieldErrors[key] }"
       />
       <select
         v-else-if="formElement[key] === 'select-option'"
-        v-model="formData[key].id"
+        :value="formData[key].id"
+        @input="$emit('update:formData', key+'.id', $event.target.value)"
         :id="'field-' + key"
         class="form-control"
         required
@@ -85,7 +88,9 @@ import { camelCaseToSentenceCase } from './Base.js'
 export default {
   name: 'ModelForm',
   data: function () {
-    return {}
+    return {
+
+    }
   },
   props: {
     modelName: {
@@ -118,8 +123,12 @@ export default {
     },
     okMessages: {
       type: Array
+    },
+    modelValue: {
+      type: Object
     }
   },
+  emits: ['update:formData', 'update', 'create'],
   methods: {
     camelCaseToSentenceCase
   }

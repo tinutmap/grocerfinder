@@ -3,6 +3,7 @@
     <model-form
       :modelName="modelNametoLowerCase"
       :formData="formData"
+      @update:formData="updateFormData"
       :isNew="isNew"
       :selectOptionData="selectOptionData"
       :loading="loading"
@@ -30,6 +31,7 @@
 </template>
 <script>
 import ModelForm from '../components/ModelForm.vue'
+import { set } from 'lodash'
 
 export default {
   name: 'ModelByIdMixins',
@@ -98,6 +100,9 @@ export default {
           console.log(e)
           this.hiddenErrors.push(e)
         })
+    },
+    updateFormData (key, value) {
+      set(this.formData, key, value)
     }
   },
   computed: {

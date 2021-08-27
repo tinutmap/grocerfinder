@@ -1,8 +1,6 @@
 import gql from 'graphql-tag'
 import { apolloClient } from '../vue-apollo.js'
 
-import omit from 'lodash/omit'
-
 export const ITEM_CREATE_BY_FORM_MUTATION = gql`
 mutation item_create_by_form ($ItemFormCreateMutationInput: ItemFormCreateMutationInput!){
   itemCreateByForm: item_create_by_form (input: $ItemFormCreateMutationInput) {
@@ -76,18 +74,14 @@ export async function itemByIdQueryData (id) {
       query: ITEM_BY_ID_QUERY,
       variables: {
         id: id
-      }
+      },
+      fetchPolicy: 'no-cache'
     })
     if (d.data.itemById) {
       // shorten data and cast price and packQty to Float
-      data = d.data.itemById
+      data = { ...d.data.itemById }
       data.price = parseFloat(data.price)
       data.packQty = parseFloat(data.packQty)
-      delete data.category.__typename
-
-      // //remove __typename from payload
-      // // https://github.com/apollographql/apollo-client/issues/1564#issuecomment-342163432
-      data = omit(data, ['__typename'])
     }
   } catch (e) {
     errors = e.message
