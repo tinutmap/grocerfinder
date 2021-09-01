@@ -1,4 +1,3 @@
-/* eslint-disable vue/no-mutating-props */
 <template >
   <form class="form-group">
     <p
@@ -43,7 +42,7 @@
         required
         :id="'field-' + key"
         :value="formData[key]"
-        @input="$emit('update:formData', key, $event.target.value)"
+        @input="$emit('update:formData', key, parseFloat($event.target.value))"
         class="form-control"
         v-bind:class="{ 'is-invalid': fieldErrors[key] }"
       />

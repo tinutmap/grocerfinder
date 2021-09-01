@@ -10,11 +10,20 @@ const httpLink = createHttpLink({
 })
 
 // Cache implementation
-const CACHE = new InMemoryCache()
+const CACHE = new InMemoryCache({
+  addTypename: false
+})
 
 const defaultOptions = {
   link: httpLink,
-  cache: CACHE
+  cache: CACHE,
+  query: {
+    // use { fetchPolicy: 'no-cache' } in order to mutate the result used at input form
+    // https://github.com/apollographql/apollo-client/issues/5903
+    // To-do: write update cache function
+    // fetchPolicy: 'cache-and-network'
+    fetchPolicy: 'no-cache'
+  }
 }
 
 // Create the apollo client
@@ -24,10 +33,11 @@ export const apolloClient = new ApolloClient({
 
 // for apollo-option
 export const apolloProvider = createApolloProvider({
-  defaultClient: apolloClient,
-  defaultOptions: {
-    $query: {
-      fetchPolicy: 'cache-and-network'
-    }
-  }
+  defaultClient: apolloClient
+  // defaultOptions: {
+  //   $query: {
+  //     // fetchPolicy: 'cache-and-network'
+  //     fetchPolicy: 'no-cache'
+  //   }
+  // }
 })

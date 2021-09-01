@@ -1,12 +1,11 @@
 <template>
-  <div v-if="!loading">
+  <div>
     <model-form
       :modelName="modelNametoLowerCase"
       :formData="formData"
       @update:formData="updateFormData"
       :isNew="isNew"
       :selectOptionData="selectOptionData"
-      :loading="loading"
       :formElement="formElement"
       :nonFieldErrors="nonFieldErrors"
       :fieldErrors="fieldErrors"
@@ -30,22 +29,14 @@
   </div>
 </template>
 <script>
-import ModelForm from '../components/ModelForm.vue'
-import { set } from 'lodash'
+import ModelForm from './ModelForm.vue'
+
+const _ = require('lodash')
 
 export default {
-  name: 'ModelByIdMixins',
+  name: 'ModelById',
   data: function () {
     return {
-      MODEL_NAME: '', // filled by mixed Component
-      formData: {}, // filled by mixed Component
-      loading: false,
-      MODEL_CREATE_BY_FORM_MUTATION: '', // filled by mixed Component
-      createMutationFormDataId: '', // filled by mixed Component
-      MODEL_UPDATE_BY_FORM_MUTATION: '', // filled by mixed Component
-      updateMutationFormDataId: '', // filled by mixed Component
-      selectOptionData: {}, // filled by mixed Component
-      formElement: {}, // filled by mixed Component
       nonFieldErrors: [],
       fieldErrors: {},
       hiddenErrors: [],
@@ -55,7 +46,19 @@ export default {
   components: {
     ModelForm
   },
-
+  props: [
+    'MODEL_NAME',
+    'formData',
+    'MODEL_CREATE_BY_FORM_MUTATION',
+    'createMutationVariables',
+    'createMutationFormDataId',
+    'MODEL_UPDATE_BY_FORM_MUTATION',
+    'updateMutationVariables',
+    'updateMutationFormDataId',
+    'selectOptionData',
+    'formElement',
+    'isNew'
+  ],
   methods: {
     processMutationData (data) {
       // reset errors and messages
@@ -102,22 +105,10 @@ export default {
         })
     },
     updateFormData (key, value) {
-      set(this.formData, key, value)
+      _.set(this.formData, key, value)
     }
   },
   computed: {
-    // this.$route.params.id is string with either 'create' or 'id'
-    // Need to cast to Int later if indeed a int
-    id: function () {
-      return this.$route.params.id
-    },
-    // return true if itemId is "new" string and false otherwise, i.e. an id
-    isNew: function () {
-      return typeof this.id === 'string'
-        ? this.id.toLowerCase() === 'create'
-        : false
-    },
-
     // Force MODEL_NAME to lowercase to ensure consistent Object property lookup from fetched data.
     modelNametoLowerCase: function () {
       return this.MODEL_NAME.toLowerCase()

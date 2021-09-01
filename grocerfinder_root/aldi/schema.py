@@ -161,8 +161,7 @@ class CategoryDeleteMutation(MutationPayLoad, graphene.Mutation):
 
 
 class ItemType(DjangoObjectType):
-    price = Decimal()
-
+ 
     class Meta:
         model = Item
         fields = ('name', 'sku', 'upc', 'image', 'category',
@@ -171,6 +170,7 @@ class ItemType(DjangoObjectType):
     # force id to be Int rather than String
     id = graphene.Int()
     # name = graphene.String()
+    price = Decimal()
 
     def resolve_id(self, context):
         return self.id
@@ -289,20 +289,9 @@ class Query(graphene.ObjectType):
     def resolve_item_by_id(parent, info, id):
 
         try:
-            item = Item.objects.get(pk=id)
+            return Item.objects.get(pk=id)
         except Item.DoesNotExist:
-            item = {
-                "name": None,
-                "category": {
-                    "id": None,
-                    "name": None
-                },
-                "sku": None,
-                "upc": None,
-                "price": None,
-                "pack_qty": None
-            }
-        return item
+            return None
 
     def resolve_all_categories(parent, info):
         return Category.objects.all().order_by('-datetime_updated')

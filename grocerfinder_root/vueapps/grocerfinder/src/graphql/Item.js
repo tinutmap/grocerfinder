@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apolloClient } from '../vue-apollo.js'
+import { useQuery } from '@vue/apollo-composable'
 
 export const ITEM_CREATE_BY_FORM_MUTATION = gql`
 mutation item_create_by_form ($ItemFormCreateMutationInput: ItemFormCreateMutationInput!){
@@ -36,7 +36,7 @@ export const ITEM_BY_ID_QUERY = gql`
       name
       category {
         id
-        name
+        # name
       }
       sku
       upc
@@ -46,64 +46,24 @@ export const ITEM_BY_ID_QUERY = gql`
   }
 `
 
-// export const ITEM_BY_ID_QUERY_DATA = async function () {
-//   let data, errors
-//   try {
-//     data = await this.$apollo.query({
-//       query: ITEM_BY_ID_QUERY,
-//       variables: {
-//         id: parseInt(this.itemId)
-//       }
-//     });
-//     // shorten data and cast price and packQty to Float
-//     data = data.data.itemById;
-//     data.price = parseFloat(data.price);
-//     data.packQty = parseFloat(data.packQty);
-//   } catch (e) {
-//     console.log(e.message);
-//     errors = e.message;
-//   }
-//   // eslint-disable-next-line no-unsafe-finally
-//   finally { return { data: data, errors: errors } }
-// }
-
-export async function itemByIdQueryData (id) {
-  let data = null; let errors = {}
-  try {
-    const d = await apolloClient.query({
-      query: ITEM_BY_ID_QUERY,
-      variables: {
-        id: id
-      },
-      fetchPolicy: 'no-cache'
-    })
-    if (d.data.itemById) {
-      // shorten data and cast price and packQty to Float
-      data = { ...d.data.itemById }
-      data.price = parseFloat(data.price)
-      data.packQty = parseFloat(data.packQty)
+export function fetchItemById (id) {
+  const { onResult } = useQuery(ITEM_BY_ID_QUERY,
+    { id: id },
+    { fetchPolicy: 'no-cache' }
+  )
+  const isIdNotFound = { value: false }
+  onResult(result => {
+    if (result.data.itemById !== null) {
+      // test if result.data. exists
+      result = result.data.itemById
+      result.price = parseFloat(result.price)
+      result.packQty = parseFloat(result.packQty)
+    } else {
+      isIdNotFound.value = true
     }
-  } catch (e) {
-    errors = e.message
-    console.log(errors)
-  } finally {
-    // eslint-disable-next-line no-unsafe-finally
-    return { data: data, errors: errors }
-  }
+  })
+  return { onResult, isIdNotFound }
 }
-
-// export const ITEM_UPDATE_MUTATION = gql`
-//   mutation updateItem($id: Int!, $input: ItemInputType!) {
-//     updateItem: update_item(id: $id, input: $input) {
-//       ok
-//       errors
-//       itemInstance: item_instance {
-//         id
-//         name
-//       }
-//     }
-//   }
-// `;
 
 export const ITEM_UPDATE_BY_FORM_MUTATION = gql`mutation item_update_by_form ($ItemFormUpdateMutationInput: ItemFormUpdateMutationInput!){
   itemUpdateByForm: item_update_by_form(input: $ItemFormUpdateMutationInput) {
