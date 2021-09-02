@@ -20,7 +20,7 @@
     </ul>
     <div v-for="key in Object.keys(formData)" :key="key">
       <label :for="'field-' + key" class="control-label">{{
-        camelCaseToSentenceCase(key)
+        camelCaseToPascalCase(key)
       }}</label>
       <span :id="'field-errors-' + key" class="error-field text-danger">
         {{ fieldErrors[key] }}
@@ -83,7 +83,7 @@
   </form>
 </template>
 <script>
-import { camelCaseToSentenceCase } from './Base.js'
+import { camelCaseToPascalCase } from './Base.js'
 export default {
   name: 'ModelForm',
   data: function () {
@@ -129,7 +129,7 @@ export default {
   },
   emits: ['update:formData', 'update', 'create'],
   methods: {
-    camelCaseToSentenceCase
+    camelCaseToPascalCase
   }
 }
 </script>

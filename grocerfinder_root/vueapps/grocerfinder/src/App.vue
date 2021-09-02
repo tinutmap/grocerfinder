@@ -1,24 +1,25 @@
 <template>
-  <div id="grocerfinder">
-    <!-- <apolloCompCategory /> -->
+  <div>
     <header>
-      <router-link to="/">
+      <!-- <router-link to="/">
         <h1>Grocerfinder Home</h1>
-      </router-link>
-          <router-link to="/category">
+      </router-link> -->
+      <a href='/' @click="$router.push('/')">Home By a href</a><br>
+      <!-- <router-link to="/category">
         <h2>Category</h2>
-      </router-link>
+      </router-link> -->
+      <a href='/category' @click="$router.push('/category')">Category By a href</a><br>
       {{ userIdentity || "Guest" }}
       <div v-if="!userIdentity">
-        <router-link to="/login/">Login</router-link>
+        <!-- <router-link to="/login/">Login</router-link> -->
+        <a href='/login' @click="$router.push('/login')">Login By a href</a><br>
       </div>
       <div v-else>
         <logout-button />
       </div>
     </header>
     <body>
-      <router-view />
-      <!-- <all-items /> -->
+      <router-view></router-view>
     </body>
   </div>
 </template>
@@ -59,9 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-/* @import "~@/assets/scss/vendors/bootstrap-vue/index"; */
 @import "bootstrap";
-
 .error-field {
   @extend .text-danger;
 }

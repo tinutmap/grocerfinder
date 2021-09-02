@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
+import { ref } from 'vue'
 
 export const ITEM_CREATE_BY_FORM_MUTATION = gql`
 mutation item_create_by_form ($ItemFormCreateMutationInput: ItemFormCreateMutationInput!){
@@ -22,13 +23,27 @@ export const ALL_ITEMS_QUERY = gql`
     allItems: all_items {
       id
       name
-      # category {
-      #   id
-      #   name
-      # }
+      category {
+        id
+        name
+      }
     }
   }
 `
+
+export function fetchItemAll () {
+  const { onResult, loading, refetch } = useQuery(ALL_ITEMS_QUERY, null, { fetchPolicy: 'no-cache' })
+  // const data = useResult(result, null, data => data.allItems)
+  const data = ref({})
+  onResult(result => {
+    // test if result.data. exists
+    if (result.data.allItems !== null) {
+      data.value = result.data.allItems
+      data.value.forEach(element => { element.category = element.category.name })
+    }
+  })
+  return { data, loading, refetch }
+}
 
 export const ITEM_BY_ID_QUERY = gql`
   query itemById($id: Int!) {
@@ -51,10 +66,11 @@ export function fetchItemById (id) {
     { id: id },
     { fetchPolicy: 'no-cache' }
   )
-  const isIdNotFound = { value: false }
+  const isIdNotFound = ref({})
   onResult(result => {
     if (result.data.itemById !== null) {
       // test if result.data. exists
+      isIdNotFound.value = false
       result = result.data.itemById
       result.price = parseFloat(result.price)
       result.packQty = parseFloat(result.packQty)
@@ -81,7 +97,7 @@ export const ITEM_UPDATE_BY_FORM_MUTATION = gql`mutation item_update_by_form ($I
 `
 
 export const ITEM_DELETE_MUTATION = gql`
-mutation deleteItem ($id_list: [Int]!) {
+mutation delete_item ($id_list: [Int]!) {
   deleteItem: delete_item (id_list: $id_list) {
     idDeleted: id_deleted
     idNotExist: id_not_exist

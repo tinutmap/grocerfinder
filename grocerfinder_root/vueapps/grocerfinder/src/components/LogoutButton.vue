@@ -26,7 +26,7 @@ export default {
         mutation: DELETE_TOKEN_COOKIE_MUTATION
       })
       console.log(data)
-      localStorage.userIdentity = ''
+      // localStorage.userIdentity = ''
       window.location.reload()
     }
   }

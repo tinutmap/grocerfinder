@@ -124,8 +124,8 @@ export const CATEGORY_DELETE_MUTATION = gql`
   mutation delete_category($id_list: [Int]!) {
     deleteCategory: delete_category(id_list: $id_list) {
       idDeleted: id_deleted
-      errors
       idNotExist: id_not_exist
+      errors
     }
   }
 `

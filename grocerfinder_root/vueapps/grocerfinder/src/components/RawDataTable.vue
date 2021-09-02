@@ -7,7 +7,7 @@
         <tr>
           <th></th>
           <th v-for="header in tableHeaders" :key="header.id">
-            {{ camelCaseToSentenceCase(header) }}
+            {{ camelCaseToPascalCase(header) }}
           </th>
           <th>Action</th>
         </tr>
@@ -27,7 +27,7 @@
             {{ values }}
           </td>
           <td>
-            <button
+            <a :href="$route.path + '/' + row.id"
               @click="$router.push({ path: $route.path + '/' + row.id })"
               class="btn .btn-primary"
               type="button"
@@ -44,7 +44,7 @@
                   d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
                 />
               </svg>
-            </button>
+            </a>
             <button
               @click="$emit('deleteEntry', [row.id])"
               class="btn .btn-Danger"
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { camelCaseToSentenceCase } from './Base.js'
+import { camelCaseToPascalCase } from './Base.js'
 export default {
   data () {
     return {}
@@ -89,19 +89,18 @@ export default {
   computed: {
     tableHeaders: function () {
       return Object.keys(this.tableData[0])
-      // let headers = Object.keys(this.tableData[0]);
-      // headers = headers.filter(h => !h.startsWith("__"));
-      // return headers;
     }
   },
   methods: {
-    camelCaseToSentenceCase,
+    camelCaseToPascalCase,
     // Using checkedBox prop to keep checked state
     // otherwise checked state will be floating after adding new row
     isChecked (id) {
       return this.checkedBox.indexOf(id) !== -1
+    },
+    pushRoute (id) {
+      this.$router.push(this.$route.path + '/' + id)
     }
-  },
-  camelCaseToSentenceCase
+  }
 }
 </script>

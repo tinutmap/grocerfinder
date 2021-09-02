@@ -1,3 +1,4 @@
+from aldi.models import Item
 for new_item in range(3,20):
     id = new_item
     new_item=str(new_item)
