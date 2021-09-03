@@ -2,7 +2,7 @@
 import gql from 'graphql-tag'
 
 export const USER_IDENTITY_QUERY = gql`
-  query {
+  query me {
     userIdentityObject: me {
       username
       firstName: first_name
@@ -12,7 +12,7 @@ export const USER_IDENTITY_QUERY = gql`
 `
 
 export const REFRESH_TOKEN_MUTATION = gql`
-  mutation {
+  mutation refresh_token {
     refresh_token {
       token
     }
@@ -31,7 +31,7 @@ export const TOKEN_AUTH_MUTATION = gql`
 `
 
 export const DELETE_TOKEN_COOKIE_MUTATION = gql`
-  mutation {
+  mutation delete_token_cookie{
     deleteTokenCookie: delete_token_cookie {
       __typename
     }

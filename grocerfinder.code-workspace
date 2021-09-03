@@ -18,6 +18,26 @@
 			"javascriptreact",
 			"vue"
 		],
-		"eslint.run": "onSave"
+		"eslint.run": "onSave",
+		"terminal.integrated.profiles.windows": {
+			// "PowerShell": {
+			//     "source": "PowerShell",
+			//     "icon": "terminal-powershell"
+			// },
+			"PowerShell": null,
+			// "Command Prompt": {
+			//     "path": [
+			//         "${env:windir}\\Sysnative\\cmd.exe",
+			//         "${env:windir}\\System32\\cmd.exe"
+			//     ],
+			//     "args": [],
+			//     "icon": "terminal-cmd"
+			// },
+			"Command Prompt": null,
+			"GitBash": {
+				"source": "Git Bash"
+			},
+		},
+		"terminal.integrated.defaultProfile.windows": "Git Bash",
 	}
 }
