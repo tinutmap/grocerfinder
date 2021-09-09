@@ -13,11 +13,10 @@
 	"settings": {
 		"python.pythonPath": "C:\\Users\\TinDinh\\.virtualenvs\\grocerfinder_project-9ihnJGvK\\Scripts\\python.exe",
 		"eslint.nodePath": ".\\grocerfinder_root\\vueapps\\grocerfinder",
-		"eslint.validate": [
-			"javascript",
-			"javascriptreact",
-			"vue"
-		],
-		"eslint.run": "onSave"
+		// "eslint.validate": [
+		// 	"javascript",
+		// 	"javascriptreact",
+		// 	"vue"
+		// ],
 	}
 }

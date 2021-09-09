@@ -1,5 +1,6 @@
+from django.db.models.expressions import Case
 import graphene
-from graphene.types import Decimal
+from decimal import Decimal
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql_jwt.decorators import login_required
@@ -161,7 +162,7 @@ class CategoryDeleteMutation(MutationPayLoad, graphene.Mutation):
 
 
 class ItemType(DjangoObjectType):
- 
+
     class Meta:
         model = Item
         fields = ('name', 'sku', 'upc', 'image', 'category',
@@ -275,6 +276,13 @@ class Query(graphene.ObjectType):
     # Item
     all_items = graphene.List(ItemType)
     item_by_id = graphene.Field(ItemType, id=graphene.Int(required=True))
+    item_fetch_more = graphene.List(
+        ItemType,
+        cursor=graphene.String(required=True),
+        cursor_id=graphene.Int(required=True),
+        page_size=graphene.Int(required=True, default_value=10),
+        sort_by_field=graphene.String(required=True, default_value='id')
+    )
 
     # Category
     all_categories = graphene.List(CategoryType)
@@ -287,11 +295,47 @@ class Query(graphene.ObjectType):
         return Item.objects.all().order_by('-id')
 
     def resolve_item_by_id(parent, info, id):
-
         try:
             return Item.objects.get(pk=id)
         except Item.DoesNotExist:
             return None
+
+    def resolve_item_fetch_more(parent, info, cursor, cursor_id, page_size, sort_by_field):
+        # Option 1: manually coded Paginator
+        try:
+            # cast cursor to correct format for comparison. Default is string
+            sort_by_field_type = Item._meta.get_field(
+                sort_by_field).description
+            if sort_by_field_type == 'Integer':
+                cursor = int(cursor)
+            elif sort_by_field_type == 'Decimal number':
+                cursor = Decimal(cursor)
+
+            # use 'id' in addition to sort_by_field. It is the aggregate
+            # criterion in case cursor is not unique to prevent duplicate
+            item_all = Item.objects.all().order_by(sort_by_field, 'id')
+
+            # convert QuerySet to list of dict with only interested field and 'id' field
+            # for next cursor index finding
+            # to-do: using list() may not be optimal for memory
+            item_all_dict = list(item_all.values(sort_by_field, 'id'))
+            try:
+                next_cursor_index = item_all_dict.index({
+                    sort_by_field: cursor,
+                    "id": cursor_id
+                }) + 1
+            except ValueError:  # when index return no value due to deleted or no matching
+                next_cursor_index = 0
+                while (
+                    item_all_dict[next_cursor_index][sort_by_field] <= cursor
+                ) and (
+                    item_all_dict[next_cursor_index]['id'] <= cursor_id
+                ):
+                    next_cursor_index += 1
+            return item_all[next_cursor_index:next_cursor_index+page_size:1]
+        except:
+            return None
+        # Option 2: https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator
 
     def resolve_all_categories(parent, info):
         return Category.objects.all().order_by('-datetime_updated')
