@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <p
       v-for="i in okMessage"
       :key="i.key"
@@ -24,12 +24,7 @@
       Delete
     </button>
     <label for="pageSize">Result Qty</label>
-    <select
-      name=""
-      id="pageSize"
-      :value="pageSize"
-      @input="$emit('update:pageSize', parseInt($event.target.value))"
-    >
+    <select name="" id="pageSize" v-model="pageSize">
       <option
         v-for="size in pageSizeOptions"
         :key="size"
@@ -40,12 +35,7 @@
       </option>
     </select>
     <label for="sortByField">Sort By</label>
-    <select
-      name=""
-      id="sortByField"
-      :value="sortByField"
-      @input="$emit('update:sortByField', $event.target.value)"
-    >
+    <select name="" id="sortByField" :value="sortByField" v-model="sortByField">
       <option
         v-for="field in sortedFields"
         :key="field"
@@ -68,7 +58,7 @@
     <button @click="deleteObject(checkedBox)" class="btn btn-danger">
       Delete
     </button>
-    <button @click="this.$emit('doFetchMore')" class="btn btn-primary">
+    <button @click="doFetchMore" class="btn btn-primary">
       Load More
     </button>
     <button @click="testThis" class="btn btn-danger">
@@ -80,31 +70,34 @@
 <script>
 import RawDataTable from './RawDataTable.vue'
 import { toPascalCase } from './Base.js'
+import { ref, computed, watch } from 'vue'
 export default {
   name: 'ModelListView',
   data () {
     return {
-      //   categoryName: undefined,
-      //   id: undefined,
       checkedBox: [],
       okMessage: [],
-      errorMessage: [],
-      pageSizeOptions: [5, 10, 25, 50, 100]
+      errorMessage: []
     }
   },
   components: {
     RawDataTable
   },
-  props: [
-    'modelName',
-    'modelData',
-    'deleteMutation',
-    // 'refetch',
-    'sortedFields',
-    'doModelFetchMore',
-    'sortByField',
-    'pageSize'
-  ],
+  props: {
+    modelName: {
+      type: String,
+      required: true
+    },
+    deleteMutation: {},
+    sortedFields: {
+      type: Array,
+      required: true
+    },
+    doModelFetchMore: {
+      type: Function,
+      require: true
+    }
+  },
   methods: {
     changeCheckbox (id) {
       const pos = this.checkedBox.indexOf(id)
@@ -133,19 +126,34 @@ export default {
               id_list: idArray
             }
           })
-          //   const data = {}
-          //   asyncFn().then((d) => { data.value = d.data.deleteItem })
-          this.refetch()
           this.okMessage = []
           data = data.data['delete' + this.modelNameToPascalCase]
-          // Removed id deleted in idDeleted array from this.checkedBox array
-          this.checkedBox = this.checkedBox.filter(
-            id => !data.idDeleted.includes(id)
+
+          // Removed id deleted in idNotExist array from this.modelData array
+          this.modelData = this.modelData.filter(
+            element => !data.idNotExist.includes(element.id)
           )
+
+          // Removed id deleted in idDeleted array from this.modelData array
+          this.modelData = this.modelData.filter(
+            element => !data.idDeleted.includes(element.id)
+          )
+
           // Removed id not exist in idNotExist array from this.checkedBox array
           this.checkedBox = this.checkedBox.filter(
             id => !data.idNotExist.includes(id)
           )
+
+          // Removed id deleted in idDeleted array from this.checkedBox array
+          this.checkedBox = this.checkedBox.filter(
+            id => !data.idDeleted.includes(id)
+          )
+
+          // Removed id not exist in idNotExist array from this.checkedBox array
+          this.checkedBox = this.checkedBox.filter(
+            id => !data.idNotExist.includes(id)
+          )
+
           if (data.idDeleted.length > 0) {
             this.okMessage.push('Deleted id(s) ' + data.idDeleted + ' OK')
           }
@@ -167,9 +175,57 @@ export default {
       return toPascalCase(this.modelName)
     }
   },
-  emits: ['update:sortByField', 'update:pageSize'],
   setup (props) {
-    return {}
+    const sortByField = ref(props.sortedFields[0])
+    const pageSizeOptions = [5, 10, 25, 50, 100]
+    const pageSize = ref(pageSizeOptions[0])
+    const cursorInitial = 0
+    const cursorIdInitial = 0
+    const modelData = ref([])
+    const { data, loading, refetch, onResult } = props.doModelFetchMore(
+      cursorInitial,
+      cursorIdInitial,
+      pageSize.value,
+      sortByField.value
+    )
+    onResult(_ => {
+      modelData.value.push(...data.value)
+    })
+    const cursor = computed(() => {
+      return modelData.value[modelData.value.length - 1][sortByField.value]
+    })
+    const cursorId = computed(() => {
+      return modelData.value[modelData.value.length - 1].id
+    })
+    function doFetchMore () {
+      refetch({
+        cursor: String(cursor.value),
+        cursor_id: cursorId.value,
+        page_size: pageSize.value,
+        sort_by_field: sortByField.value
+      })
+    }
+    watch([pageSize, sortByField], newValue => {
+      // this is fine but encounter:
+      // runtime-core.esm-bundler.js:6873 [Vue warn]: onServerPrefetch is called when there is no active component instance to be associated with. Lifecycle injection APIs can only be used during execution of setup(). If you are using async setup(), make sure to register lifecycle hooks before the first await statement.
+      const { data, onResult } = props.doModelFetchMore(
+        cursorInitial,
+        cursorIdInitial,
+        newValue[0],
+        newValue[1]
+      )
+      onResult(_ => {
+        modelData.value = data.value
+      })
+    })
+    return {
+      sortByField,
+      pageSizeOptions,
+      pageSize,
+      modelData,
+      loading,
+      doFetchMore
+    }
   }
 }
 </script>
