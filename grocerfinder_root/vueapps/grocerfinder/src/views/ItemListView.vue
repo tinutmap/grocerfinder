@@ -1,34 +1,19 @@
 <template>
   <div v-if="!loading">
-    <select name="" id="" v-model="sortByField">
-      <option
-        v-for="field in sortedFields"
-        :key="field"
-        :value="field"
-        :selected="sortByField"
-      >
-        {{ field }}
-      </option>
-    </select>
-    <select name="" id="" v-model="pageSize">
-      <option
-        v-for="size in pageSizeOption"
-        :key="size"
-        :value="size"
-        :selected="pageSize"
-      >
-        {{ size }}
-      </option>
-    </select>
     <model-list-view
       v-if="!loading"
       :modelName="modelName"
       :modelData="itemData"
       :deleteMutation="deleteMutation"
       :refetch="refetch"
+      @doFetchMore="doFetchMore"
+      :sortedFields="sortedFields"
+      :sortByField="sortByField"
+      @update:sortByField="updateFromChild($event, 'sortByField')"
+      :pageSize="pageSize"
+      @update:pageSize="updateFromChild($event, 'pageSize')"
     >
     </model-list-view>
-    <button @click="doFetchMore" class="btn btn-primary">Load More</button>
     <button @click="testThis" class="btn btn-danger">
       Test This from Parent Component
     </button>
@@ -48,8 +33,7 @@ export default {
     return {
       modelName: 'Item',
       deleteMutation: ITEM_DELETE_MUTATION,
-      sortedFields: ['id', 'price'],
-      pageSizeOption: [5, 10, 25, 50, 100]
+      sortedFields: ['id', 'price']
     }
   },
   components: {
@@ -58,6 +42,9 @@ export default {
   methods: {
     testThis () {
       console.log(this)
+    },
+    updateFromChild (event, variable) {
+      this[variable] = event
     }
   },
   computed: {},
@@ -68,6 +55,7 @@ export default {
     const cursorIdInitial = 0
     const itemData = ref([])
     const {
+      data,
       loading,
       refetch,
       onResult
@@ -78,8 +66,9 @@ export default {
       pageSize.value,
       sortByField.value
     )
-    onResult(result => {
-      itemData.value.push(...result.data.itemFetchMore)
+    onResult(_ => {
+      // itemData.value.push(...result.data.itemFetchMore)
+      itemData.value.push(...data.value)
     })
 
     const cursor = computed(() => {
@@ -107,6 +96,7 @@ export default {
         page_size: pageSize.value,
         sort_by_field: sortByField.value
       })
+
       // trying fetchMore https://v4.apollo.vuejs.org/guide-composable/pagination.html#cursor-based
       // fetchMore({
       //   variables: {
@@ -120,17 +110,18 @@ export default {
       //   }
       // })
     }
-    watch([pageSize, sortByField], (newValue, _) => {
+    watch([pageSize, sortByField], newValue => {
       // this is fine but encounter:
       // runtime-core.esm-bundler.js:6873 [Vue warn]: onServerPrefetch is called when there is no active component instance to be associated with. Lifecycle injection APIs can only be used during execution of setup(). If you are using async setup(), make sure to register lifecycle hooks before the first await statement.
-      const { onResult } = doItemFetchMore(
+      const { data, onResult } = doItemFetchMore(
         cursorInitial,
         cursorIdInitial,
         newValue[0],
         newValue[1]
       )
-      onResult(result => {
-        itemData.value = result.data.itemFetchMore
+      onResult(_ => {
+        // itemData.value = result.data.itemFetchMore
+        itemData.value = data.value
       })
     })
     return {

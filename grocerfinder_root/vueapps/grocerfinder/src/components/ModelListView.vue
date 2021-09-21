@@ -17,46 +17,79 @@
       {{ i }}
     </p>
     <!-- to-do: put Create and Delete button into template or render function for DRY -->
-     <router-link :to="$route.path + '/create'">
-        <button class="btn btn-primary">Create</button>
-      </router-link>
-      <button @click="deleteObject(checkedBox)" class="btn btn-danger">
-        Delete
-      </button>
-      <raw-data-table
-        :tableData="modelData"
-        :checkedBox="checkedBox"
-        @checkbox-changed="changeCheckbox"
-        @deleteEntry="deleteObject"
-      ></raw-data-table>
+    <router-link :to="$route.path + '/create'">
+      <button class="btn btn-primary">Create</button>
+    </router-link>
+    <button @click="deleteObject(checkedBox)" class="btn btn-danger">
+      Delete
+    </button>
+    <label for="pageSize">Result Qty</label>
+    <select
+      name=""
+      id="pageSize"
+      :value="pageSize"
+      @input="$emit('update:pageSize', parseInt($event.target.value))"
+    >
+      <option
+        v-for="size in pageSizeOptions"
+        :key="size"
+        :value="size"
+        :selected="pageSize"
+      >
+        {{ size }}
+      </option>
+    </select>
+    <label for="sortByField">Sort By</label>
+    <select
+      name=""
+      id="sortByField"
+      :value="sortByField"
+      @input="$emit('update:sortByField', $event.target.value)"
+    >
+      <option
+        v-for="field in sortedFields"
+        :key="field"
+        :value="field"
+        :selected="sortByField"
+      >
+        {{ field }}
+      </option>
+    </select>
+    <raw-data-table
+      :tableData="modelData"
+      :checkedBox="checkedBox"
+      @checkbox-changed="changeCheckbox"
+      @deleteEntry="deleteObject"
+    ></raw-data-table>
 
-      <router-link :to="$route.path + '/create'">
-        <button class="btn btn-primary">Create</button>
-      </router-link>
-      <button @click="deleteObject(checkedBox)" class="btn btn-danger">
-        Delete
-      </button>
-      <button @click="testThis" class="btn btn-danger">
-        Test This from Child Component
-      </button>
-
+    <router-link :to="$route.path + '/create'">
+      <button class="btn btn-primary">Create</button>
+    </router-link>
+    <button @click="deleteObject(checkedBox)" class="btn btn-danger">
+      Delete
+    </button>
+    <button @click="this.$emit('doFetchMore')" class="btn btn-primary">
+      Load More
+    </button>
+    <button @click="testThis" class="btn btn-danger">
+      Test This from Child Component
+    </button>
   </div>
 </template>
 
 <script>
-
 import RawDataTable from './RawDataTable.vue'
 import { toPascalCase } from './Base.js'
-
 export default {
   name: 'ModelListView',
   data () {
     return {
-    //   categoryName: undefined,
-    //   id: undefined,
+      //   categoryName: undefined,
+      //   id: undefined,
       checkedBox: [],
       okMessage: [],
-      errorMessage: []
+      errorMessage: [],
+      pageSizeOptions: [5, 10, 25, 50, 100]
     }
   },
   components: {
@@ -66,7 +99,11 @@ export default {
     'modelName',
     'modelData',
     'deleteMutation',
-    'refetch'
+    // 'refetch',
+    'sortedFields',
+    'doModelFetchMore',
+    'sortByField',
+    'pageSize'
   ],
   methods: {
     changeCheckbox (id) {
@@ -129,10 +166,10 @@ export default {
     modelNameToPascalCase: function () {
       return toPascalCase(this.modelName)
     }
+  },
+  emits: ['update:sortByField', 'update:pageSize'],
+  setup (props) {
+    return {}
   }
-//   setup () {
-//     const { data, loading, refetch } = fetchCategoryAll()
-//     return { data, loading, refetch }
-//   }
 }
 </script>

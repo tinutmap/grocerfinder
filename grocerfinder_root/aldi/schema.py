@@ -1,10 +1,6 @@
 from django.db.models.expressions import Case
 import graphene
-
-# to-do: what's the diff between graphene.Decimal and python Decimal?
-from graphene.types import Decimal
-# from decimal import Decimal
-
+import decimal
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql_jwt.decorators import login_required
@@ -175,7 +171,7 @@ class ItemType(DjangoObjectType):
     # force id to be Int rather than String
     id = graphene.Int()
     # name = graphene.String()
-    price = Decimal()
+    price = graphene.Decimal()
 
     def resolve_id(self, context):
         return self.id
@@ -313,7 +309,7 @@ class Query(graphene.ObjectType):
             if sort_by_field_type == 'Integer':
                 cursor = int(cursor)
             elif sort_by_field_type == 'Decimal number':
-                cursor = Decimal(cursor)
+                cursor = decimal.Decimal(cursor)
 
             # use 'id' in addition to sort_by_field. It is the aggregate
             # criterion in case cursor is not unique to prevent duplicate
