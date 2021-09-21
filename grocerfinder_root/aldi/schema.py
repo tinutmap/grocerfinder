@@ -1,6 +1,10 @@
 from django.db.models.expressions import Case
 import graphene
-from decimal import Decimal
+
+# to-do: what's the diff between graphene.Decimal and python Decimal?
+from graphene.types import Decimal
+# from decimal import Decimal
+
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql_jwt.decorators import login_required

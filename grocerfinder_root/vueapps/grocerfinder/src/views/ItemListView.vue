@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { ITEM_DELETE_MUTATION, fetchMoreItem } from '../graphql/Item.js'
+import { ITEM_DELETE_MUTATION, doItemFetchMore } from '../graphql/Item.js'
 
 import ModelListView from '../components/ModelListView.vue'
 
@@ -59,17 +59,6 @@ export default {
     testThis () {
       console.log(this)
     }
-    // fetchMore () {
-    //   const { onResult } = fetchMoreItem(
-    //     this.cursor,
-    //     this.cursorId,
-    //     this.pageSize,
-    //     this.sortByField
-    //   )
-    //   onResult(result => {
-    //     this.itemData.push(...result.data.itemFetchMore)
-    //   })
-    // }
   },
   computed: {},
   setup () {
@@ -83,7 +72,7 @@ export default {
       refetch,
       onResult
       // fetchMore
-    } = fetchMoreItem(
+    } = doItemFetchMore(
       cursorInitial,
       cursorIdInitial,
       pageSize.value,
@@ -102,7 +91,7 @@ export default {
     function doFetchMore () {
       // this is fine but encounter:
       // runtime-core.esm-bundler.js:6873 [Vue warn]: onServerPrefetch is called when there is no active component instance to be associated with. Lifecycle injection APIs can only be used during execution of setup(). If you are using async setup(), make sure to register lifecycle hooks before the first await statement.
-      // const { onResult } = fetchMoreItem(
+      // const { onResult } = doItemFetchMore(
       //   cursor.value,
       //   cursorId.value,
       //   pageSize.value,
@@ -134,7 +123,7 @@ export default {
     watch([pageSize, sortByField], (newValue, _) => {
       // this is fine but encounter:
       // runtime-core.esm-bundler.js:6873 [Vue warn]: onServerPrefetch is called when there is no active component instance to be associated with. Lifecycle injection APIs can only be used during execution of setup(). If you are using async setup(), make sure to register lifecycle hooks before the first await statement.
-      const { onResult } = fetchMoreItem(
+      const { onResult } = doItemFetchMore(
         cursorInitial,
         cursorIdInitial,
         newValue[0],

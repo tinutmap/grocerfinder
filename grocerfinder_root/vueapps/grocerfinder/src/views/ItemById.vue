@@ -18,16 +18,13 @@
 import {
   ITEM_CREATE_BY_FORM_MUTATION,
   ITEM_UPDATE_BY_FORM_MUTATION,
-  fetchItemById
+  doItemFetchById
 } from '../graphql/Item.js'
 import { fetchCategoryAll } from '../graphql/Category.js'
 import ModelById from '../components/ModelById.vue'
 import { getModelIdFromRoute, isModelIdNew } from '../components/Base.js'
 import { useRouter } from 'vue-router'
-import {
-  ref,
-  onMounted
-} from 'vue'
+import { ref, onMounted } from 'vue'
 
 export default {
   name: 'ItemById',
@@ -42,7 +39,7 @@ export default {
 
     const getItemById = async () => {
       loading.value = true
-      const { onResult, isIdNotFound } = await fetchItemById(id)
+      const { onResult, isIdNotFound } = await doItemFetchById(id)
       onResult(result => {
         if (!isIdNotFound.value) {
           formData.value = result.data.itemById
@@ -76,7 +73,16 @@ export default {
       // Tried async/await, computed, and watch for isIdNotFound flag but failed
       getCategoryAll()
     })
-    return { id, isNew, formData, getItemById, loading, itemById, getCategoryAll, selectOptionData }
+    return {
+      id,
+      isNew,
+      formData,
+      getItemById,
+      loading,
+      itemById,
+      getCategoryAll,
+      selectOptionData
+    }
   },
   data: function () {
     return {

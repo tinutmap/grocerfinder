@@ -35,21 +35,7 @@ export const ALL_ITEMS_QUERY = gql`
   }
 `
 
-export function fetchItemAll () {
-  const { onResult, loading, refetch } = useQuery(ALL_ITEMS_QUERY, null, { fetchPolicy: 'no-cache' })
-  // const data = useResult(result, null, data => data.allItems)
-  const data = ref({})
-  onResult(result => {
-    // test if result.data. exists
-    if (result.data.allItems !== null) {
-      data.value = result.data.allItems
-      data.value.forEach(element => { element.category = element.category.name })
-    }
-  })
-  return { data, loading, refetch }
-}
-
-export const ITEM_FETCH_MORE = gql`
+export const ITEM_FETCH_MORE_QUERY = gql`
   query itemFetchMore ($cursor: String!, $cursor_id: Int!, $page_size: Int!, $sort_by_field: String!) {
   itemFetchMore: item_fetch_more(cursor: $cursor, cursor_id: $cursor_id, page_size: $page_size, sort_by_field: $sort_by_field) {
     id
@@ -63,8 +49,8 @@ export const ITEM_FETCH_MORE = gql`
 }
 `
 
-export function fetchMoreItem (cursor, cursorId, pageSize, sortByField) {
-  const { onResult, loading, refetch, fetchMore } = useQuery(ITEM_FETCH_MORE,
+export function doItemFetchMore (cursor, cursorId, pageSize, sortByField) {
+  const { onResult, loading, refetch, fetchMore } = useQuery(ITEM_FETCH_MORE_QUERY,
     {
       cursor: String(cursor),
       cursor_id: cursorId,
@@ -87,8 +73,8 @@ export function fetchMoreItem (cursor, cursorId, pageSize, sortByField) {
 // // trying with useLazyQuery
 // // https://www.apollographql.com/docs/react/api/react/hooks/#uselazyquery
 // // https://github.com/vuejs/vue-apollo/commit/8e95aea00fe5a9d01c290262c6684c7c3b615ab0
-// export function fetchMoreItem (cursor, cursorId, pageSize, sortByField) {
-//   const [getLazy, { onResult, loading, refetch }] = useLazyQuery(ITEM_FETCH_MORE,
+// export function doItemFetchMore (cursor, cursorId, pageSize, sortByField) {
+//   const [getLazy, { onResult, loading, refetch }] = useLazyQuery(ITEM_FETCH_MORE_QUERY,
 //     {
 //       cursor: String(cursor),
 //       cursor_id: cursorId,
@@ -124,7 +110,7 @@ export const ITEM_BY_ID_QUERY = gql`
   }
 `
 
-export function fetchItemById (id) {
+export function doItemFetchById (id) {
   const { onResult } = useQuery(ITEM_BY_ID_QUERY,
     { id: id },
     { fetchPolicy: 'no-cache' }
