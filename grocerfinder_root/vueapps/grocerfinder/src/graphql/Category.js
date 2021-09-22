@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import { apolloClient } from '../vue-apollo.js'
 import { useQuery, useResult } from '@vue/apollo-composable'
-// import { cloneDeep } from 'lodash'
+import { ref } from 'vue'
 
 export const CATEGORY_CREATE_BY_FORM_MUTATION = gql`
   mutation category_create_by_form(
@@ -63,27 +63,6 @@ export const CATEGORY_BY_ID_QUERY = gql`
   }
 `
 
-// export async function categoryByIdQueryData (id) {
-//   let data = null; let errors = {}
-//   try {
-//     const d = await apolloClient.query({
-//       query: CATEGORY_BY_ID_QUERY,
-//       variables: {
-//         id: id
-//       }
-//     })
-//     if (d.data.categoryById) {
-//       data = cloneDeep(d.data.categoryById)
-//     }
-//   } catch (e) {
-//     errors = e.message
-//     console.log(errors)
-//   } finally {
-//     // eslint-disable-next-line no-unsafe-finally
-//     return { data: data, errors: errors }
-//   }
-// }
-
 export function fetchCategoryById (id) {
   const { onResult } = useQuery(CATEGORY_BY_ID_QUERY,
     { id: id },
@@ -99,6 +78,38 @@ export function fetchCategoryById (id) {
     }
   })
   return { onResult, isIdNotFound }
+}
+
+export const CATEGORY_FETCH_MORE_QUERY = gql`
+query categoryFetchMore ($cursor: String!, $cursor_id: Int!, $page_size: Int!, $sort_by_field: String!) {
+  categoryFetchMore: category_fetch_more(cursor: $cursor, cursor_id: $cursor_id, page_size: $page_size, sort_by_field: $sort_by_field) {
+    id
+    name
+    datetimeUpdated: datetime_updated
+  }
+}
+`
+
+export function doCategoryFetchMore (cursor, cursorId, pageSize, sortByField) {
+  const { onResult, loading, refetch, fetchMore } = useQuery(CATEGORY_FETCH_MORE_QUERY,
+    {
+      cursor: String(cursor),
+      cursor_id: cursorId,
+      page_size: pageSize,
+      sort_by_field: sortByField
+    },
+    { fetchPolicy: 'no-cache' }
+  )
+  const data = ref({})
+  onResult(result => {
+    // test if result.data. exists
+    if (result.data.categoryFetchMore !== null) {
+      data.value = result.data.categoryFetchMore
+      // cast datetimeUpdated from String to ISOString
+      data.value.map(i => (i.datetimeUpdated = new Date(i.datetimeUpdated).toString()))
+    }
+  })
+  return { data, loading, onResult, refetch, fetchMore }
 }
 
 export const CATEGORY_UPDATE_BY_FORM_MUTATION = gql`

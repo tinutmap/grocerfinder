@@ -4,7 +4,7 @@
       :modelName="modelName"
       :deleteMutation="deleteMutation"
       :sortedFields="sortedFields"
-      :doModelFetchMore="doItemFetchMore"
+      :doModelFetchMore="doModelFetchMore"
     >
     </model-list-view>
     <button @click="testThis" class="btn btn-danger">
@@ -25,7 +25,7 @@ export default {
       modelName: 'Item',
       deleteMutation: ITEM_DELETE_MUTATION,
       sortedFields: ['id', 'price'],
-      doItemFetchMore: doItemFetchMore
+      doModelFetchMore: doItemFetchMore
     }
   },
   components: {
