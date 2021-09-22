@@ -1,18 +1,17 @@
 <template>
   <model-list-view
-    v-if="!loading"
-    :modelName = "modelName"
-    :modelData = "allCategoriesDateTimeUpdatedCast"
+    :modelName="modelName"
     :deleteMutation="deleteMutation"
-    :refetch = "refetch"
+    :sortedFields="sortedFields"
+    :doModelFetchMore="doModelFetchMore"
   >
-</model-list-view>
+  </model-list-view>
 </template>
 
 <script>
 import {
   CATEGORY_DELETE_MUTATION,
-  fetchCategoryAll
+  doCategoryFetchMore
 } from '../graphql/Category.js'
 
 import ModelListView from '../components/ModelListView.vue'
@@ -22,25 +21,16 @@ export default {
   data () {
     return {
       modelName: 'Category',
-      deleteMutation: CATEGORY_DELETE_MUTATION
+      deleteMutation: CATEGORY_DELETE_MUTATION,
+      sortedFields: ['id', 'name', 'datetime_updated'],
+      doModelFetchMore: doCategoryFetchMore
     }
   },
   components: {
     ModelListView
   },
-  methods: {
-  },
-  computed: {
-    allCategoriesDateTimeUpdatedCast: function () {
-      // cast datetimeUpdated from String to ISOString
-      const t = this.data
-      t.map(i => (i.datetimeUpdated = new Date(i.datetimeUpdated).toString()))
-      return t
-    }
-  },
-  setup () {
-    const { data, loading, refetch } = fetchCategoryAll()
-    return { data, loading, refetch }
-  }
+  methods: {},
+  computed: {},
+  setup () {}
 }
 </script>

@@ -1,25 +1,20 @@
 <template>
   <div>
-<model-list-view
-    v-if="!loading"
-    :modelName = "modelName"
-    :modelData = "data"
-    :deleteMutation="deleteMutation"
-    :refetch = "refetch"
-  >
-</model-list-view>
-      <button @click="testThis" class="btn btn-danger">
-        Test This from Parent Component
-      </button>
+    <model-list-view
+      :modelName="modelName"
+      :deleteMutation="deleteMutation"
+      :sortedFields="sortedFields"
+      :doModelFetchMore="doModelFetchMore"
+    >
+    </model-list-view>
+    <button @click="testThis" class="btn btn-danger">
+      Test This from Parent Component
+    </button>
   </div>
-
 </template>
 
 <script>
-import {
-  ITEM_DELETE_MUTATION,
-  fetchItemAll
-} from '../graphql/Item.js'
+import { ITEM_DELETE_MUTATION, doItemFetchMore } from '../graphql/Item.js'
 
 import ModelListView from '../components/ModelListView.vue'
 
@@ -28,7 +23,9 @@ export default {
   data () {
     return {
       modelName: 'Item',
-      deleteMutation: ITEM_DELETE_MUTATION
+      deleteMutation: ITEM_DELETE_MUTATION,
+      sortedFields: ['id', 'price'],
+      doModelFetchMore: doItemFetchMore
     }
   },
   components: {
@@ -39,9 +36,7 @@ export default {
       console.log(this)
     }
   },
-  setup () {
-    const { data, loading, refetch } = fetchItemAll()
-    return { data, loading, refetch }
-  }
+  computed: {},
+  setup () {}
 }
 </script>

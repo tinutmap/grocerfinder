@@ -15,6 +15,7 @@
         <logout-button />
       </div>
     </header>
+
     <body>
       <router-view></router-view>
     </body>
