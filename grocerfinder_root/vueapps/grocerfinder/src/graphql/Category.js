@@ -91,7 +91,7 @@ query categoryFetchMore ($cursor: String!, $cursor_id: Int!, $page_size: Int!, $
 `
 
 export function doCategoryFetchMore (cursor, cursorId, pageSize, sortByField) {
-  const { onResult, loading, refetch, fetchMore } = useQuery(CATEGORY_FETCH_MORE_QUERY,
+  const { onResult, loading, refetch } = useQuery(CATEGORY_FETCH_MORE_QUERY,
     {
       cursor: String(cursor),
       cursor_id: cursorId,
@@ -109,7 +109,7 @@ export function doCategoryFetchMore (cursor, cursorId, pageSize, sortByField) {
       data.value.map(i => (i.datetimeUpdated = new Date(i.datetimeUpdated).toString()))
     }
   })
-  return { data, loading, onResult, refetch, fetchMore }
+  return { data, loading, onResult, refetch }
 }
 
 export const CATEGORY_UPDATE_BY_FORM_MUTATION = gql`

@@ -30,14 +30,7 @@ export default {
     ModelListView
   },
   methods: {},
-  computed: {
-    // allCategoriesDateTimeUpdatedCast: function () {
-    //   // cast datetimeUpdated from String to ISOString
-    //   const t = this.data
-    //   t.map(i => (i.datetimeUpdated = new Date(i.datetimeUpdated).toString()))
-    //   return t
-    // }
-  },
+  computed: {},
   setup () {}
 }
 </script>

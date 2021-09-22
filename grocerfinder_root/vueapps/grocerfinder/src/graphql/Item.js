@@ -50,7 +50,7 @@ export const ITEM_FETCH_MORE_QUERY = gql`
 `
 
 export function doItemFetchMore (cursor, cursorId, pageSize, sortByField) {
-  const { onResult, loading, refetch, fetchMore } = useQuery(ITEM_FETCH_MORE_QUERY,
+  const { onResult, loading, refetch } = useQuery(ITEM_FETCH_MORE_QUERY,
     {
       cursor: String(cursor),
       cursor_id: cursorId,
@@ -67,7 +67,7 @@ export function doItemFetchMore (cursor, cursorId, pageSize, sortByField) {
       data.value.forEach(element => { element.category = element.category.name })
     }
   })
-  return { data, loading, onResult, refetch, fetchMore }
+  return { data, loading, onResult, refetch }
 }
 
 // // trying with useLazyQuery

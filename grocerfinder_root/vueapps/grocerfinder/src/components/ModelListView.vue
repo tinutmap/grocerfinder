@@ -189,7 +189,11 @@ export default {
       sortByField.value
     )
     onResult(_ => {
-      modelData.value.push(...data.value)
+      if (data.value.length > 0) {
+        modelData.value.length > 0
+          ? modelData.value.push(...data.value)
+          : (modelData.value = data.value)
+      }
     })
     const cursor = computed(() => {
       return modelData.value[modelData.value.length - 1][sortByField.value]
@@ -206,16 +210,11 @@ export default {
       })
     }
     watch([pageSize, sortByField], newValue => {
-      // this is fine but encounter:
-      // runtime-core.esm-bundler.js:6873 [Vue warn]: onServerPrefetch is called when there is no active component instance to be associated with. Lifecycle injection APIs can only be used during execution of setup(). If you are using async setup(), make sure to register lifecycle hooks before the first await statement.
-      const { data, onResult } = props.doModelFetchMore(
-        cursorInitial,
-        cursorIdInitial,
-        newValue[0],
-        newValue[1]
-      )
-      onResult(_ => {
-        modelData.value = data.value
+      refetch({
+        cursor: String(cursorInitial),
+        cursor_id: cursorIdInitial,
+        page_size: newValue[0],
+        sort_by_field: newValue[1]
       })
     })
     return {
