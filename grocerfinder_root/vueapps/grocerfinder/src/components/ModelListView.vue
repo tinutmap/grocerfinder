@@ -210,6 +210,8 @@ export default {
       })
     }
     watch([pageSize, sortByField], newValue => {
+      // set modelData to empty to fix issue #3
+      modelData.value = []
       refetch({
         cursor: String(cursorInitial),
         cursor_id: cursorIdInitial,
