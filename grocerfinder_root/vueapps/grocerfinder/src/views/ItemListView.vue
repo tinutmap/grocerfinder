@@ -7,9 +7,6 @@
       :doModelFetchMore="doModelFetchMore"
     >
     </model-list-view>
-    <button @click="testThis" class="btn btn-danger">
-      Test This from Parent Component
-    </button>
   </div>
 </template>
 
@@ -30,11 +27,6 @@ export default {
   },
   components: {
     ModelListView
-  },
-  methods: {
-    testThis () {
-      console.log(this)
-    }
   },
   computed: {},
   setup () {}
