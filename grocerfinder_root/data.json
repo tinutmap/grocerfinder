@@ -1,0 +1,1435 @@
+[
+    {
+        "model": "aldi.category",
+        "pk": 1,
+        "fields": {
+            "name": "default",
+            "datetime_updated": "2021-07-22T19:37:23.197Z"
+        }
+    },
+    {
+        "model": "aldi.category",
+        "pk": 17,
+        "fields": {
+            "name": "17++",
+            "datetime_updated": "2021-09-01T22:10:21.998Z"
+        }
+    },
+    {
+        "model": "aldi.category",
+        "pk": 18,
+        "fields": {
+            "name": "18",
+            "datetime_updated": "2021-09-01T22:09:28.847Z"
+        }
+    },
+    {
+        "model": "aldi.category",
+        "pk": 19,
+        "fields": {
+            "name": "19",
+            "datetime_updated": "2021-09-01T22:09:28.847Z"
+        }
+    },
+    {
+        "model": "aldi.uom",
+        "pk": 0,
+        "fields": {
+            "symbol": "[not set]",
+            "name": "[not set]",
+            "datetime_updated": "2020-10-16T20:12:58.534Z"
+        }
+    },
+    {
+        "model": "aldi.uom",
+        "pk": 1,
+        "fields": {
+            "symbol": "lbm",
+            "name": "Pound mass",
+            "datetime_updated": "2020-10-16T20:12:58.534Z"
+        }
+    },
+    {
+        "model": "aldi.uom",
+        "pk": 3,
+        "fields": {
+            "symbol": "fl.oz",
+            "name": "Flood Ounce",
+            "datetime_updated": "2020-10-16T20:50:34.793Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 1,
+        "fields": {
+            "name": "Honeycrisp Apple+++",
+            "sku": "abc",
+            "upc": "abc",
+            "image": "apple1.jpg",
+            "category": 1,
+            "price": "3.00",
+            "uom": 1,
+            "pack_qty": "2.0000",
+            "datetime_updated": "2020-10-16T20:12:58.528Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 2,
+        "fields": {
+            "name": "Hawaiian Pizza",
+            "sku": "1234",
+            "upc": "1234",
+            "image": "iu1.jpg",
+            "category": 1,
+            "price": "3.99",
+            "uom": 1,
+            "pack_qty": "3.0000",
+            "datetime_updated": "2020-10-16T20:12:58.528Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 7,
+        "fields": {
+            "name": "7",
+            "sku": "7",
+            "upc": "7",
+            "image": "",
+            "category": 1,
+            "price": "7.00",
+            "uom": 0,
+            "pack_qty": "7.0000",
+            "datetime_updated": "2021-09-09T20:38:55.913Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 10,
+        "fields": {
+            "name": "10",
+            "sku": "10",
+            "upc": "10",
+            "image": "",
+            "category": 1,
+            "price": "10.00",
+            "uom": 0,
+            "pack_qty": "10.0000",
+            "datetime_updated": "2021-09-09T20:38:55.924Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 11,
+        "fields": {
+            "name": "11",
+            "sku": "11",
+            "upc": "11",
+            "image": "",
+            "category": 1,
+            "price": "11.00",
+            "uom": 0,
+            "pack_qty": "11.0000",
+            "datetime_updated": "2021-09-09T20:38:55.927Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 13,
+        "fields": {
+            "name": "13",
+            "sku": "13",
+            "upc": "13",
+            "image": "",
+            "category": 1,
+            "price": "13.00",
+            "uom": 0,
+            "pack_qty": "13.0000",
+            "datetime_updated": "2021-09-09T20:38:55.934Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 14,
+        "fields": {
+            "name": "14",
+            "sku": "14",
+            "upc": "14",
+            "image": "",
+            "category": 1,
+            "price": "14.00",
+            "uom": 0,
+            "pack_qty": "14.0000",
+            "datetime_updated": "2021-09-09T20:38:55.937Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 15,
+        "fields": {
+            "name": "15",
+            "sku": "15",
+            "upc": "15",
+            "image": "",
+            "category": 1,
+            "price": "15.00",
+            "uom": 0,
+            "pack_qty": "15.0000",
+            "datetime_updated": "2021-09-09T20:38:55.941Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 16,
+        "fields": {
+            "name": "16",
+            "sku": "16",
+            "upc": "16",
+            "image": "",
+            "category": 1,
+            "price": "16.00",
+            "uom": 0,
+            "pack_qty": "16.0000",
+            "datetime_updated": "2021-09-09T20:38:55.945Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 17,
+        "fields": {
+            "name": "17",
+            "sku": "17",
+            "upc": "17",
+            "image": "",
+            "category": 1,
+            "price": "17.00",
+            "uom": 0,
+            "pack_qty": "17.0000",
+            "datetime_updated": "2021-09-09T20:38:55.948Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 18,
+        "fields": {
+            "name": "18",
+            "sku": "18",
+            "upc": "18",
+            "image": "",
+            "category": 1,
+            "price": "18.00",
+            "uom": 0,
+            "pack_qty": "18.0000",
+            "datetime_updated": "2021-09-09T20:38:55.950Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 19,
+        "fields": {
+            "name": "19",
+            "sku": "19",
+            "upc": "19",
+            "image": "",
+            "category": 1,
+            "price": "19.00",
+            "uom": 0,
+            "pack_qty": "19.0000",
+            "datetime_updated": "2021-09-09T20:38:55.953Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 20,
+        "fields": {
+            "name": "20",
+            "sku": "20",
+            "upc": "20",
+            "image": "",
+            "category": 1,
+            "price": "20.00",
+            "uom": 0,
+            "pack_qty": "20.0000",
+            "datetime_updated": "2021-09-09T20:38:55.956Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 21,
+        "fields": {
+            "name": "21",
+            "sku": "21",
+            "upc": "21",
+            "image": "",
+            "category": 1,
+            "price": "21.00",
+            "uom": 0,
+            "pack_qty": "21.0000",
+            "datetime_updated": "2021-09-09T20:38:55.958Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 22,
+        "fields": {
+            "name": "22",
+            "sku": "22",
+            "upc": "22",
+            "image": "",
+            "category": 1,
+            "price": "22.00",
+            "uom": 0,
+            "pack_qty": "22.0000",
+            "datetime_updated": "2021-09-09T20:38:55.960Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 23,
+        "fields": {
+            "name": "23",
+            "sku": "23",
+            "upc": "23",
+            "image": "",
+            "category": 1,
+            "price": "23.00",
+            "uom": 0,
+            "pack_qty": "23.0000",
+            "datetime_updated": "2021-09-09T20:38:55.964Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 26,
+        "fields": {
+            "name": "26",
+            "sku": "26",
+            "upc": "26",
+            "image": "",
+            "category": 1,
+            "price": "26.00",
+            "uom": 0,
+            "pack_qty": "26.0000",
+            "datetime_updated": "2021-09-09T20:38:55.964Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 27,
+        "fields": {
+            "name": "27",
+            "sku": "27",
+            "upc": "27",
+            "image": "",
+            "category": 1,
+            "price": "27.00",
+            "uom": 0,
+            "pack_qty": "27.0000",
+            "datetime_updated": "2021-09-09T20:38:55.964Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 28,
+        "fields": {
+            "name": "28",
+            "sku": "28",
+            "upc": "28",
+            "image": "",
+            "category": 1,
+            "price": "28.00",
+            "uom": 0,
+            "pack_qty": "28.0000",
+            "datetime_updated": "2021-09-09T20:38:55.964Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 29,
+        "fields": {
+            "name": "29",
+            "sku": "29",
+            "upc": "29",
+            "image": "",
+            "category": 1,
+            "price": "29.00",
+            "uom": 0,
+            "pack_qty": "29.0000",
+            "datetime_updated": "2021-09-09T20:38:55.964Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 30,
+        "fields": {
+            "name": "30",
+            "sku": "30",
+            "upc": "30",
+            "image": "",
+            "category": 1,
+            "price": "30.00",
+            "uom": 0,
+            "pack_qty": "30.0000",
+            "datetime_updated": "2021-09-09T20:38:55.979Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 31,
+        "fields": {
+            "name": "31",
+            "sku": "31",
+            "upc": "31",
+            "image": "",
+            "category": 1,
+            "price": "31.00",
+            "uom": 0,
+            "pack_qty": "31.0000",
+            "datetime_updated": "2021-09-09T20:38:55.979Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 32,
+        "fields": {
+            "name": "32",
+            "sku": "32",
+            "upc": "32",
+            "image": "",
+            "category": 1,
+            "price": "32.00",
+            "uom": 0,
+            "pack_qty": "32.0000",
+            "datetime_updated": "2021-09-09T20:38:55.979Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 33,
+        "fields": {
+            "name": "33",
+            "sku": "33",
+            "upc": "33",
+            "image": "",
+            "category": 1,
+            "price": "33.00",
+            "uom": 0,
+            "pack_qty": "33.0000",
+            "datetime_updated": "2021-09-09T20:38:55.979Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 34,
+        "fields": {
+            "name": "34",
+            "sku": "34",
+            "upc": "34",
+            "image": "",
+            "category": 1,
+            "price": "34.00",
+            "uom": 0,
+            "pack_qty": "34.0000",
+            "datetime_updated": "2021-09-09T20:38:55.979Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 35,
+        "fields": {
+            "name": "35",
+            "sku": "35",
+            "upc": "35",
+            "image": "",
+            "category": 1,
+            "price": "35.00",
+            "uom": 0,
+            "pack_qty": "35.0000",
+            "datetime_updated": "2021-09-09T20:38:55.979Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 36,
+        "fields": {
+            "name": "36",
+            "sku": "36",
+            "upc": "36",
+            "image": "",
+            "category": 1,
+            "price": "36.00",
+            "uom": 0,
+            "pack_qty": "36.0000",
+            "datetime_updated": "2021-09-09T20:38:55.995Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 37,
+        "fields": {
+            "name": "37",
+            "sku": "37",
+            "upc": "37",
+            "image": "",
+            "category": 1,
+            "price": "37.00",
+            "uom": 0,
+            "pack_qty": "37.0000",
+            "datetime_updated": "2021-09-09T20:38:55.995Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 38,
+        "fields": {
+            "name": "38",
+            "sku": "38",
+            "upc": "38",
+            "image": "",
+            "category": 1,
+            "price": "38.00",
+            "uom": 0,
+            "pack_qty": "38.0000",
+            "datetime_updated": "2021-09-09T20:38:55.995Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 39,
+        "fields": {
+            "name": "39",
+            "sku": "39",
+            "upc": "39",
+            "image": "",
+            "category": 1,
+            "price": "39.00",
+            "uom": 0,
+            "pack_qty": "39.0000",
+            "datetime_updated": "2021-09-09T20:38:55.995Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 40,
+        "fields": {
+            "name": "40",
+            "sku": "40",
+            "upc": "40",
+            "image": "",
+            "category": 1,
+            "price": "40.00",
+            "uom": 0,
+            "pack_qty": "40.0000",
+            "datetime_updated": "2021-09-09T20:38:56.011Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 41,
+        "fields": {
+            "name": "41",
+            "sku": "41",
+            "upc": "41",
+            "image": "",
+            "category": 1,
+            "price": "41.00",
+            "uom": 0,
+            "pack_qty": "41.0000",
+            "datetime_updated": "2021-09-09T20:38:56.014Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 42,
+        "fields": {
+            "name": "42",
+            "sku": "42",
+            "upc": "42",
+            "image": "",
+            "category": 1,
+            "price": "42.00",
+            "uom": 0,
+            "pack_qty": "42.0000",
+            "datetime_updated": "2021-09-09T20:38:56.016Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 43,
+        "fields": {
+            "name": "43",
+            "sku": "43",
+            "upc": "43",
+            "image": "",
+            "category": 1,
+            "price": "43.00",
+            "uom": 0,
+            "pack_qty": "43.0000",
+            "datetime_updated": "2021-09-09T20:38:56.016Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 44,
+        "fields": {
+            "name": "44",
+            "sku": "44",
+            "upc": "44",
+            "image": "",
+            "category": 1,
+            "price": "44.00",
+            "uom": 0,
+            "pack_qty": "44.0000",
+            "datetime_updated": "2021-09-09T20:38:56.016Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 45,
+        "fields": {
+            "name": "45",
+            "sku": "45",
+            "upc": "45",
+            "image": "",
+            "category": 1,
+            "price": "45.00",
+            "uom": 0,
+            "pack_qty": "45.0000",
+            "datetime_updated": "2021-09-09T20:38:56.016Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 46,
+        "fields": {
+            "name": "46",
+            "sku": "46",
+            "upc": "46",
+            "image": "",
+            "category": 1,
+            "price": "46.00",
+            "uom": 0,
+            "pack_qty": "46.0000",
+            "datetime_updated": "2021-09-09T20:38:56.016Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 47,
+        "fields": {
+            "name": "47",
+            "sku": "47",
+            "upc": "47",
+            "image": "",
+            "category": 1,
+            "price": "47.00",
+            "uom": 0,
+            "pack_qty": "47.0000",
+            "datetime_updated": "2021-09-09T20:38:56.016Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 48,
+        "fields": {
+            "name": "48",
+            "sku": "48",
+            "upc": "48",
+            "image": "",
+            "category": 1,
+            "price": "48.00",
+            "uom": 0,
+            "pack_qty": "48.0000",
+            "datetime_updated": "2021-09-09T20:38:56.032Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 49,
+        "fields": {
+            "name": "49",
+            "sku": "49",
+            "upc": "49",
+            "image": "",
+            "category": 1,
+            "price": "49.00",
+            "uom": 0,
+            "pack_qty": "49.0000",
+            "datetime_updated": "2021-09-09T20:38:56.032Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 50,
+        "fields": {
+            "name": "50",
+            "sku": "50",
+            "upc": "50",
+            "image": "",
+            "category": 1,
+            "price": "50.00",
+            "uom": 0,
+            "pack_qty": "50.0000",
+            "datetime_updated": "2021-09-09T20:38:56.032Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 51,
+        "fields": {
+            "name": "51",
+            "sku": "51",
+            "upc": "51",
+            "image": "",
+            "category": 1,
+            "price": "51.00",
+            "uom": 0,
+            "pack_qty": "51.0000",
+            "datetime_updated": "2021-09-09T20:38:56.032Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 52,
+        "fields": {
+            "name": "52",
+            "sku": "52",
+            "upc": "52",
+            "image": "",
+            "category": 1,
+            "price": "52.00",
+            "uom": 0,
+            "pack_qty": "52.0000",
+            "datetime_updated": "2021-09-09T20:38:56.032Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 53,
+        "fields": {
+            "name": "53",
+            "sku": "53",
+            "upc": "53",
+            "image": "",
+            "category": 1,
+            "price": "53.00",
+            "uom": 0,
+            "pack_qty": "53.0000",
+            "datetime_updated": "2021-09-09T20:38:56.048Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 54,
+        "fields": {
+            "name": "54",
+            "sku": "54",
+            "upc": "54",
+            "image": "",
+            "category": 1,
+            "price": "54.00",
+            "uom": 0,
+            "pack_qty": "54.0000",
+            "datetime_updated": "2021-09-09T20:38:56.048Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 55,
+        "fields": {
+            "name": "55",
+            "sku": "55",
+            "upc": "55",
+            "image": "",
+            "category": 1,
+            "price": "55.00",
+            "uom": 0,
+            "pack_qty": "55.0000",
+            "datetime_updated": "2021-09-09T20:38:56.048Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 56,
+        "fields": {
+            "name": "56",
+            "sku": "56",
+            "upc": "56",
+            "image": "",
+            "category": 1,
+            "price": "56.00",
+            "uom": 0,
+            "pack_qty": "56.0000",
+            "datetime_updated": "2021-09-09T20:38:56.048Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 57,
+        "fields": {
+            "name": "57",
+            "sku": "57",
+            "upc": "57",
+            "image": "",
+            "category": 1,
+            "price": "57.00",
+            "uom": 0,
+            "pack_qty": "57.0000",
+            "datetime_updated": "2021-09-09T20:38:56.048Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 58,
+        "fields": {
+            "name": "58",
+            "sku": "58",
+            "upc": "58",
+            "image": "",
+            "category": 1,
+            "price": "58.00",
+            "uom": 0,
+            "pack_qty": "58.0000",
+            "datetime_updated": "2021-09-09T20:38:56.048Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 59,
+        "fields": {
+            "name": "59",
+            "sku": "59",
+            "upc": "59",
+            "image": "",
+            "category": 1,
+            "price": "59.00",
+            "uom": 0,
+            "pack_qty": "59.0000",
+            "datetime_updated": "2021-09-09T20:38:56.063Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 60,
+        "fields": {
+            "name": "60",
+            "sku": "60",
+            "upc": "60",
+            "image": "",
+            "category": 1,
+            "price": "60.00",
+            "uom": 0,
+            "pack_qty": "60.0000",
+            "datetime_updated": "2021-09-09T20:38:56.063Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 61,
+        "fields": {
+            "name": "61",
+            "sku": "61",
+            "upc": "61",
+            "image": "",
+            "category": 1,
+            "price": "61.00",
+            "uom": 0,
+            "pack_qty": "61.0000",
+            "datetime_updated": "2021-09-09T20:38:56.063Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 62,
+        "fields": {
+            "name": "62",
+            "sku": "62",
+            "upc": "62",
+            "image": "",
+            "category": 1,
+            "price": "62.00",
+            "uom": 0,
+            "pack_qty": "62.0000",
+            "datetime_updated": "2021-09-09T20:38:56.063Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 63,
+        "fields": {
+            "name": "63",
+            "sku": "63",
+            "upc": "63",
+            "image": "",
+            "category": 1,
+            "price": "63.00",
+            "uom": 0,
+            "pack_qty": "63.0000",
+            "datetime_updated": "2021-09-09T20:38:56.063Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 64,
+        "fields": {
+            "name": "64",
+            "sku": "64",
+            "upc": "64",
+            "image": "",
+            "category": 1,
+            "price": "64.00",
+            "uom": 0,
+            "pack_qty": "64.0000",
+            "datetime_updated": "2021-09-09T20:38:56.079Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 65,
+        "fields": {
+            "name": "65",
+            "sku": "65",
+            "upc": "65",
+            "image": "",
+            "category": 1,
+            "price": "65.00",
+            "uom": 0,
+            "pack_qty": "65.0000",
+            "datetime_updated": "2021-09-09T20:38:56.079Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 66,
+        "fields": {
+            "name": "66",
+            "sku": "66",
+            "upc": "66",
+            "image": "",
+            "category": 1,
+            "price": "66.00",
+            "uom": 0,
+            "pack_qty": "66.0000",
+            "datetime_updated": "2021-09-09T20:38:56.079Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 67,
+        "fields": {
+            "name": "67",
+            "sku": "67",
+            "upc": "67",
+            "image": "",
+            "category": 1,
+            "price": "67.00",
+            "uom": 0,
+            "pack_qty": "67.0000",
+            "datetime_updated": "2021-09-09T20:38:56.079Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 68,
+        "fields": {
+            "name": "68",
+            "sku": "68",
+            "upc": "68",
+            "image": "",
+            "category": 1,
+            "price": "68.00",
+            "uom": 0,
+            "pack_qty": "68.0000",
+            "datetime_updated": "2021-09-09T20:38:56.079Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 69,
+        "fields": {
+            "name": "69",
+            "sku": "69",
+            "upc": "69",
+            "image": "",
+            "category": 1,
+            "price": "69.00",
+            "uom": 0,
+            "pack_qty": "69.0000",
+            "datetime_updated": "2021-09-09T20:38:56.094Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 70,
+        "fields": {
+            "name": "70",
+            "sku": "70",
+            "upc": "70",
+            "image": "",
+            "category": 1,
+            "price": "70.00",
+            "uom": 0,
+            "pack_qty": "70.0000",
+            "datetime_updated": "2021-09-09T20:38:56.094Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 71,
+        "fields": {
+            "name": "71",
+            "sku": "71",
+            "upc": "71",
+            "image": "",
+            "category": 1,
+            "price": "71.00",
+            "uom": 0,
+            "pack_qty": "71.0000",
+            "datetime_updated": "2021-09-09T20:38:56.094Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 72,
+        "fields": {
+            "name": "72",
+            "sku": "72",
+            "upc": "72",
+            "image": "",
+            "category": 1,
+            "price": "72.00",
+            "uom": 0,
+            "pack_qty": "72.0000",
+            "datetime_updated": "2021-09-09T20:38:56.094Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 73,
+        "fields": {
+            "name": "73",
+            "sku": "73",
+            "upc": "73",
+            "image": "",
+            "category": 1,
+            "price": "73.00",
+            "uom": 0,
+            "pack_qty": "73.0000",
+            "datetime_updated": "2021-09-09T20:38:56.094Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 74,
+        "fields": {
+            "name": "74",
+            "sku": "74",
+            "upc": "74",
+            "image": "",
+            "category": 1,
+            "price": "74.00",
+            "uom": 0,
+            "pack_qty": "74.0000",
+            "datetime_updated": "2021-09-09T20:38:56.110Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 75,
+        "fields": {
+            "name": "75",
+            "sku": "75",
+            "upc": "75",
+            "image": "",
+            "category": 1,
+            "price": "75.00",
+            "uom": 0,
+            "pack_qty": "75.0000",
+            "datetime_updated": "2021-09-09T20:38:56.117Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 76,
+        "fields": {
+            "name": "76",
+            "sku": "76",
+            "upc": "76",
+            "image": "",
+            "category": 1,
+            "price": "76.00",
+            "uom": 0,
+            "pack_qty": "76.0000",
+            "datetime_updated": "2021-09-09T20:38:56.117Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 77,
+        "fields": {
+            "name": "77",
+            "sku": "77",
+            "upc": "77",
+            "image": "",
+            "category": 1,
+            "price": "77.00",
+            "uom": 0,
+            "pack_qty": "77.0000",
+            "datetime_updated": "2021-09-09T20:38:56.117Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 78,
+        "fields": {
+            "name": "78",
+            "sku": "78",
+            "upc": "78",
+            "image": "",
+            "category": 1,
+            "price": "78.00",
+            "uom": 0,
+            "pack_qty": "78.0000",
+            "datetime_updated": "2021-09-09T20:38:56.117Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 79,
+        "fields": {
+            "name": "79",
+            "sku": "79",
+            "upc": "79",
+            "image": "",
+            "category": 1,
+            "price": "79.00",
+            "uom": 0,
+            "pack_qty": "79.0000",
+            "datetime_updated": "2021-09-09T20:38:56.117Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 80,
+        "fields": {
+            "name": "80",
+            "sku": "80",
+            "upc": "80",
+            "image": "",
+            "category": 1,
+            "price": "80.00",
+            "uom": 0,
+            "pack_qty": "80.0000",
+            "datetime_updated": "2021-09-09T20:38:56.117Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 81,
+        "fields": {
+            "name": "81",
+            "sku": "81",
+            "upc": "81",
+            "image": "",
+            "category": 1,
+            "price": "81.00",
+            "uom": 0,
+            "pack_qty": "81.0000",
+            "datetime_updated": "2021-09-09T20:38:56.117Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 82,
+        "fields": {
+            "name": "82",
+            "sku": "82",
+            "upc": "82",
+            "image": "",
+            "category": 1,
+            "price": "82.00",
+            "uom": 0,
+            "pack_qty": "82.0000",
+            "datetime_updated": "2021-09-09T20:38:56.132Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 83,
+        "fields": {
+            "name": "83",
+            "sku": "83",
+            "upc": "83",
+            "image": "",
+            "category": 1,
+            "price": "83.00",
+            "uom": 0,
+            "pack_qty": "83.0000",
+            "datetime_updated": "2021-09-09T20:38:56.132Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 84,
+        "fields": {
+            "name": "84",
+            "sku": "84",
+            "upc": "84",
+            "image": "",
+            "category": 1,
+            "price": "84.00",
+            "uom": 0,
+            "pack_qty": "84.0000",
+            "datetime_updated": "2021-09-09T20:38:56.132Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 85,
+        "fields": {
+            "name": "85",
+            "sku": "85",
+            "upc": "85",
+            "image": "",
+            "category": 1,
+            "price": "85.00",
+            "uom": 0,
+            "pack_qty": "85.0000",
+            "datetime_updated": "2021-09-09T20:38:56.132Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 86,
+        "fields": {
+            "name": "86",
+            "sku": "86",
+            "upc": "86",
+            "image": "",
+            "category": 1,
+            "price": "86.00",
+            "uom": 0,
+            "pack_qty": "86.0000",
+            "datetime_updated": "2021-09-09T20:38:56.132Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 87,
+        "fields": {
+            "name": "87",
+            "sku": "87",
+            "upc": "87",
+            "image": "",
+            "category": 1,
+            "price": "87.00",
+            "uom": 0,
+            "pack_qty": "87.0000",
+            "datetime_updated": "2021-09-09T20:38:56.132Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 88,
+        "fields": {
+            "name": "88",
+            "sku": "88",
+            "upc": "88",
+            "image": "",
+            "category": 1,
+            "price": "88.00",
+            "uom": 0,
+            "pack_qty": "88.0000",
+            "datetime_updated": "2021-09-09T20:38:56.148Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 89,
+        "fields": {
+            "name": "89",
+            "sku": "89",
+            "upc": "89",
+            "image": "",
+            "category": 1,
+            "price": "89.00",
+            "uom": 0,
+            "pack_qty": "89.0000",
+            "datetime_updated": "2021-09-09T20:38:56.148Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 90,
+        "fields": {
+            "name": "90",
+            "sku": "90",
+            "upc": "90",
+            "image": "",
+            "category": 1,
+            "price": "90.00",
+            "uom": 0,
+            "pack_qty": "90.0000",
+            "datetime_updated": "2021-09-09T20:38:56.148Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 91,
+        "fields": {
+            "name": "91",
+            "sku": "91",
+            "upc": "91",
+            "image": "",
+            "category": 1,
+            "price": "91.00",
+            "uom": 0,
+            "pack_qty": "91.0000",
+            "datetime_updated": "2021-09-09T20:38:56.148Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 92,
+        "fields": {
+            "name": "92",
+            "sku": "92",
+            "upc": "92",
+            "image": "",
+            "category": 1,
+            "price": "92.00",
+            "uom": 0,
+            "pack_qty": "92.0000",
+            "datetime_updated": "2021-09-09T20:38:56.148Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 93,
+        "fields": {
+            "name": "93",
+            "sku": "93",
+            "upc": "93",
+            "image": "",
+            "category": 1,
+            "price": "93.00",
+            "uom": 0,
+            "pack_qty": "93.0000",
+            "datetime_updated": "2021-09-09T20:38:56.148Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 94,
+        "fields": {
+            "name": "94",
+            "sku": "94",
+            "upc": "94",
+            "image": "",
+            "category": 1,
+            "price": "94.00",
+            "uom": 0,
+            "pack_qty": "94.0000",
+            "datetime_updated": "2021-09-09T20:38:56.148Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 95,
+        "fields": {
+            "name": "95",
+            "sku": "95",
+            "upc": "95",
+            "image": "",
+            "category": 1,
+            "price": "95.00",
+            "uom": 0,
+            "pack_qty": "95.0000",
+            "datetime_updated": "2021-09-09T20:38:56.163Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 96,
+        "fields": {
+            "name": "96",
+            "sku": "96",
+            "upc": "96",
+            "image": "",
+            "category": 1,
+            "price": "96.00",
+            "uom": 0,
+            "pack_qty": "96.0000",
+            "datetime_updated": "2021-09-09T20:38:56.163Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 97,
+        "fields": {
+            "name": "97",
+            "sku": "97",
+            "upc": "97",
+            "image": "",
+            "category": 1,
+            "price": "97.00",
+            "uom": 0,
+            "pack_qty": "97.0000",
+            "datetime_updated": "2021-09-09T20:38:56.163Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 98,
+        "fields": {
+            "name": "98",
+            "sku": "98",
+            "upc": "98",
+            "image": "",
+            "category": 1,
+            "price": "98.00",
+            "uom": 0,
+            "pack_qty": "98.0000",
+            "datetime_updated": "2021-09-09T20:38:56.163Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 99,
+        "fields": {
+            "name": "99",
+            "sku": "99",
+            "upc": "99",
+            "image": "",
+            "category": 1,
+            "price": "99.00",
+            "uom": 0,
+            "pack_qty": "99.0000",
+            "datetime_updated": "2021-09-09T20:38:56.163Z"
+        }
+    },
+    {
+        "model": "aldi.item",
+        "pk": 100,
+        "fields": {
+            "name": "100",
+            "sku": "100",
+            "upc": "100",
+            "image": "",
+            "category": 1,
+            "price": "100.00",
+            "uom": 0,
+            "pack_qty": "100.0000",
+            "datetime_updated": "2021-09-09T20:38:56.163Z"
+        }
+    },
+    {
+        "model": "aldi.itemhistory",
+        "pk": 1,
+        "fields": {
+            "item": 2,
+            "price": "3.50",
+            "datetime_report": "2020-10-16T20:00:05.005Z"
+        }
+    }
+]

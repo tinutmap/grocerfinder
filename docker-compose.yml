@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  django_backend:
+    image: tinutmap/grocerfinder_django_backend
+    container_name: django_backend
+    build: ./
+    restart: unless-stopped
+    command: gunicorn grocerfinder.wsgi:application --bind 0.0.0.0:8000
+    # volumes:
+      # - ./grocerfinder_root/:/usr/src/grocerfinder_root    
+      # still can't find .volumeignore
+      # https://github.com/docker/compose/issues/2098
+      # use below to ignore vueapps - frontend
+      # https://stackoverflow.com/questions/29181032/add-a-volume-to-docker-but-exclude-a-sub-folder
+      # - /usr/src/grocerfinder_root/vueapps
+    expose:
+      - 8000
+    env_file:
+       - ./grocerfinder_root/grocerfinder/settings/production/.env
+    depends_on:
+      - database
+
+  database:
+    image: postgres:13.0-alpine
+    container_name: postgres_db
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./grocerfinder_root/grocerfinder/settings/production/.env
+    environment:
+     - TZ=America/New_York
+     - PGTZ=America/New_York
+    
+  nginx:
+    image: tinutmap/grocerfinder_nginx
+    container_name: nginx
+    build: ./nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      -  django_backend
+    volumes:
+      - letsencrypt_cert:/etc/letsencrypt/
+      - nginx_log:/var/log/
+
+volumes:
+  postgres_data:
+  letsencrypt_cert:
+  nginx_log:

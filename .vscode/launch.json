@@ -19,7 +19,8 @@
             "program": "${workspaceFolder}\\grocerfinder_root\\manage.py",
             "args": [
                 "runserver",
-                "0.0.0.0:8000"
+                "0.0.0.0:8000",
+                "--settings=grocerfinder.settings.development"
             ],
             "django": true
         },
@@ -40,7 +41,6 @@
             "sourceMapPathOverrides": {
                 "webpack:///src/*": "${webRoot}/*",
                 "webpack:///./src/*": "${webRoot}/*",
-
             },
             "preLaunchTask": "npm: serve"
         }
@@ -48,7 +48,10 @@
     "compounds": [
         {
             "name": "Run both-ends",
-            "configurations": ["Python: Django","vuejs: Chrome", ]
+            "configurations": [
+                "Python: Django",
+                "vuejs: Chrome",
+            ]
         }
     ],
 }

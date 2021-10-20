@@ -10,23 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+import environ
 from pathlib import Path
 from datetime import timedelta
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-ng2$+%wi^6odwlk=j8^hw$f&98!3$+jktl0a%jkvh-stww4sm'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    'grocerfinder.com',
+]
 
 
 # Application definition
@@ -78,26 +82,7 @@ WSGI_APPLICATION = 'grocerfinder.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-"""
 
-# postgres database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'grocerfinder',
-        'USER': 'grocerfinder_root',
-        'PASSWORD': 'a0O7y%6RWyxk',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -147,15 +132,14 @@ GRAPHENE = {
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
+    'http://www.grocerfinder.com',
+    'http://grocerfinder.com',
+    'https://www.grocerfinder.com',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    # '*',
-]
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 
 AUTHENTICATION_BACKENDS = [
     'graphql_jwt.backends.JSONWebTokenBackend',
