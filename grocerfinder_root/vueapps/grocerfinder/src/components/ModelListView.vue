@@ -61,9 +61,6 @@
     <button @click="doFetchMore" class="btn btn-primary">
       Load More
     </button>
-    <button @click="testThis" class="btn btn-danger">
-      Test This from Child Component
-    </button>
   </div>
 </template>
 
@@ -165,9 +162,6 @@ export default {
           this.errorMessage.push(...e)
         }
       }
-    },
-    async testThis () {
-      console.log(this)
     }
   },
   computed: {
