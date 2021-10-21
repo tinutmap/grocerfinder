@@ -46,6 +46,7 @@
       </option>
     </select>
     <raw-data-table
+      v-if="modelData.length > 0"
       :tableData="modelData"
       :checkedBox="checkedBox"
       @checkbox-changed="changeCheckbox"
@@ -182,11 +183,31 @@ export default {
       pageSize.value,
       sortByField.value
     )
+
+    let isResetModelData = false
     onResult(_ => {
       if (data.value.length > 0) {
-        modelData.value.length > 0
-          ? modelData.value.push(...data.value)
-          : (modelData.value = data.value)
+        if (isResetModelData) {
+          modelData.value = []
+          isResetModelData = false
+        }
+        if (modelData.value.length > 0) {
+          // check and insert only new element from data.value
+          for (const i of data.value) {
+            let isIdFound = false
+            for (const j of modelData.value) {
+              if (i.id === j.id) {
+                isIdFound = true
+                break
+              }
+            }
+            if (isIdFound === false) {
+              modelData.value.push(i)
+            }
+          }
+        } else {
+          modelData.value = data.value
+        }
       }
     })
     const cursor = computed(() => {
@@ -196,6 +217,7 @@ export default {
       return modelData.value[modelData.value.length - 1].id
     })
     function doFetchMore () {
+      isResetModelData = false
       refetch({
         cursor: String(cursor.value),
         cursor_id: cursorId.value,
@@ -204,8 +226,7 @@ export default {
       })
     }
     watch([pageSize, sortByField], newValue => {
-      // set modelData to empty to fix issue #3
-      modelData.value = []
+      isResetModelData = true
       refetch({
         cursor: String(cursorInitial),
         cursor_id: cursorIdInitial,
