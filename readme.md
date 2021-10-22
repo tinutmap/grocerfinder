@@ -16,7 +16,7 @@ This project is also a learning/tinkering/proven ground for the following:
 - Database: Postgres.
 - Backend: Python, Django, graphene-jwt.
 - Web API: Graphql, graphene.
-- Frontend: HTML, Javascript, Vuejs, Bootstrap, Apollo API Client.
+- Frontend: HTML, Javascript, Vuejs, Bootstrap CSS, Apollo API Client.
 - Deployment: Docker, Nginx, Letsencrypt + Certbot, Linux Ubuntu on Amazon EC2.
 ___
 ## For developers
