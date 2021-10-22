@@ -17,7 +17,7 @@ This project is also a learning/tinkering/proven ground for the following:
 - Backend: Python, Django, graphene, graphene-jwt.
 - Web API: Graphql.
 - Frontend: Vuejs, Apollo API Client.
-- Deployment: Docker, Linux Ubuntu on Amazon EC2.
+- Deployment: Docker, Nginx, Letsencrypt + Certbot, Linux Ubuntu on Amazon EC2.
 ___
 ## For developers
 ### Prerequisites:
@@ -47,7 +47,7 @@ git clone https://github.com/tinutmap/grocerfinder.git
   ```
   $ cd grocerfinder_root
   ```
-  - Create `.env` environment variable file. Create new `DJANGO_SECRET_KEY` and `POSTGRES_PASSWORD`:
+  - Create `.env` environment variable file in `/grocerfinder/grocerfinder_root/grocerfinder/settings/development`. Create new `DJANGO_SECRET_KEY` and `POSTGRES_PASSWORD`:
   ```
   # Instruction to generate new secret_key https://tech.serhatteker.com/post/2020-01/django-create-secret-key/ 
   DJANGO_SECRET_KEY=[django_secret_key]
@@ -101,6 +101,37 @@ At project root directory (`/grocerfinder`), create a remote context to server's
 $ docker context create remote \
   --docker "host=ssh://ubuntu@grocerfinder.com"
 ```
+- Create `.env` environment variable file in `/grocerfinder/grocerfinder_root/grocerfinder/settings/production`.
+```
+DJANGO_SECRET_KEY=[django_secret_key]
+DJANGO_DEBUG=False
+
+# env below used in settings.py and database_postgres container
+POSTGRES_DB=grocerfinder
+POSTGRES_USER=grocerfinder_root
+POSTGRES_PASSWORD=[a_secured_password]
+POSTGRES_HOST=database # database is the container defined in docker-compose.yml
+POSTGRES_PORT=5432
+
+# container init env variables
+
+# Set super user password in Docker container if desired, leave blank if no super user created
+DJANGO_SUPERUSER_PASSWORD=[another_secured_password]
+```
+
+Optional: In `grocerfinder/Dockerfile` Change the following options if needed. Default values are shown
+```
+# Set to True if wanting to Flush data upon container init. 
+# Warning will delete current data
+ENV DJANGO_FLUSH_DATA=False
+
+# Set to True if wanting to Flush data upon container init. 
+ENV DJANGO_MIGRATE=False
+
+# Set to True if loading data from data.json file
+ENV DJANGO_LOAD_DATA=False
+```
+
  To apply new changes to server run script
 ```
 $ sh deploy.sh
