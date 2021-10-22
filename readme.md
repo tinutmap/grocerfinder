@@ -1,12 +1,12 @@
 # grocerfinder.com
 
 ## Intro
-grocerfinder.com is a pet project to keep a curated list of seasonal items from **Aldi** grocery store in the US. **Aldi** is author's favorite grocery store which offers rotating high quality seasonal items. Based on author experience, some items are in high demand that are truely *"here today, gone tomorrow"*.
+grocerfinder.com is a pet project to keep a curated list of seasonal items from **Aldi** grocery store in the US. **Aldi** is author's favorite grocery store which offers rotating high quality seasonal items. Based on author experience, some items are in high demand that are truly *"here today, gone tomorrow"*.
 
 This project's objectives are to:
-- Let users keep track of their favorite items.
+- Let users report availability, price, promotion, etc. and keep track of their favorite items.
 - Let users rate and discuss about items.
-- Provide them a time estimate/prediction of future availability.
+- Provide users a time estimate/prediction of future availability based on past data points.
 
 The data is gathered from the author and potentially crowd-sourced from public in the future.
 
@@ -14,9 +14,9 @@ The data is gathered from the author and potentially crowd-sourced from public i
 ## Tech stack:
 This project is also a learning/tinkering/proven ground for the following:
 - Database: Postgres.
-- Backend: Python, Django, graphene, graphene-jwt.
-- Web API: Graphql.
-- Frontend: Vuejs, Apollo API Client.
+- Backend: Python, Django, graphene-jwt.
+- Web API: Graphql, graphene.
+- Frontend: HTML, Javascript, Vuejs, Bootstrap, Apollo API Client.
 - Deployment: Docker, Nginx, Letsencrypt + Certbot, Linux Ubuntu on Amazon EC2.
 ___
 ## For developers
@@ -36,7 +36,7 @@ ___
 git clone https://github.com/tinutmap/grocerfinder.git
 ```
 - Django setup (backend):
-  - In terminal, change directory to project root (etc), create new virtual environment and install the required packages by:
+  - In terminal, change directory to project root directory (`/grocerfinder`), create new virtual environment and install the required packages by:
   ```
   $ cd grocerfinder
   $ pipenv shell
@@ -87,7 +87,7 @@ git clone https://github.com/tinutmap/grocerfinder.git
    ```
    $ npm run serve
    ```
-   - Browse the website at `https://localhost:8080`
+   - Browse the website at `http://localhost:8080`
 
 ## Deployment (for reference only):
 ### Prerequisites:
@@ -96,7 +96,7 @@ git clone https://github.com/tinutmap/grocerfinder.git
 - Docker 19.03.13 or higher with docker engine and docker-compose installed on host(dev) machine and remote. [Instruction](https://www.postgresqltutorial.com/postgresql-getting-started/)
 
 ### Setup
-At project root directory (`/grocerfinder`), create a remote context to server's docker deamon
+At project root directory (`/grocerfinder`), create a remote context to server's docker daemon
 ```
 $ docker context create remote \
   --docker "host=ssh://ubuntu@grocerfinder.com"
