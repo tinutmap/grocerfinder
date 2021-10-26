@@ -22,7 +22,8 @@
                 "0.0.0.0:8000",
                 "--settings=grocerfinder.settings.development"
             ],
-            "django": true
+            "django": true,
+            "justMyCode": false
         },
         {
             "command": "npm run serve",

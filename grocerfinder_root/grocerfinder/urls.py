@@ -29,28 +29,8 @@ urlpatterns = [
     # path('accounts/login', admin.site.urls),
     path('', include('aldi.urls')),
 
-    # # Original settings without jwt_cookies
-    # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    # # removing / for Apollo graphQL VS Code Extension
-    # path('graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-
-    # # Testing with PrivateGraphQLView
-    # path('graphql/', csrf_exempt(PrivateGraphQLView.as_view(graphiql=True))),
-    # # removing / for Apollo graphQL VS Code Extension
-    # path('graphql', csrf_exempt(PrivateGraphQLView.as_view(graphiql=True)))
-
     # Using jwt_cookie and csrf_exempt
     path('graphql/', jwt_cookie(csrf_exempt(GraphQLView.as_view(graphiql=True)))),
     # removing / for Apollo graphQL VS Code Extension
     path('graphql', jwt_cookie(csrf_exempt(GraphQLView.as_view(graphiql=True)))),
-
-    # # Using jwt_cookie only
-    # path('graphql/', jwt_cookie(GraphQLView.as_view(graphiql=True))),
-    # # removing / for Apollo graphQL VS Code Extension
-    # path('graphql', jwt_cookie(GraphQLView.as_view(graphiql=True))),
-
-    # # No jwt_cookie and csrf_exempt
-    # path('graphql/', GraphQLView.as_view(graphiql=True)),
-    # # removing / for Apollo graphQL VS Code Extension
-    # path('graphql', GraphQLView.as_view(graphiql=True)),
 ]
