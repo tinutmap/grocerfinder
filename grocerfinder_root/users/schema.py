@@ -37,7 +37,6 @@ class Query(graphene.ObjectType):
     def resolve_all_users(parent, info):
         return get_user_model().objects.all()
 
-    @login_required
     def resolve_me(parent, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:

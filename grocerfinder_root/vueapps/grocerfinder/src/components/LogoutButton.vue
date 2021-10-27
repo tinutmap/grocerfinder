@@ -11,7 +11,7 @@
 
 <script>
 import { DELETE_TOKEN_COOKIE_MUTATION } from '../graphql/Authentication.js'
-
+import { inject } from 'vue'
 export default {
   name: 'Login',
   data: function () {
@@ -22,13 +22,15 @@ export default {
   },
   methods: {
     async logOut () {
-      const data = await this.$apollo.mutate({
+      await this.$apollo.mutate({
         mutation: DELETE_TOKEN_COOKIE_MUTATION
       })
-      console.log(data)
-      // localStorage.userIdentity = ''
-      window.location.reload()
+      this.doRefetchUserIdentity()
     }
+  },
+  setup () {
+    const doRefetchUserIdentity = inject('doRefetchUserIdentity')
+    return { doRefetchUserIdentity }
   }
 }
 </script>

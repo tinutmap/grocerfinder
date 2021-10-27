@@ -7,15 +7,14 @@
       <router-link to="/category">
         <h2>Category</h2>
       </router-link>
-      {{ userIdentity || "Guest" }}
-      <div v-if="!userIdentity">
-        <router-link to="/login/">Login</router-link>
+      {{ userIdentity }}<br />
+      <div v-if="userIdentity === 'Guest'">
+        <router-link :to="'/login/?next=' + $route.path">Login</router-link>
       </div>
       <div v-else>
         <logout-button />
       </div>
     </header>
-
     <body>
       <router-view></router-view>
     </body>
@@ -24,36 +23,24 @@
 
 <script>
 import LogoutButton from './components/LogoutButton.vue'
-import { USER_IDENTITY_QUERY } from './graphql/Authentication.js'
-
+import { doUserIdentityQuery } from './graphql/Authentication.js'
+import { provide } from 'vue'
 export default {
   name: 'grocerfinder',
   components: {
     LogoutButton
   },
-  data: function () {
-    return {
-      userIdentity: ''
+  setup () {
+    const { userIdentity, refetch, restart } = doUserIdentityQuery()
+    const doRefetchUserIdentity = () => {
+      // restart() the query so refetch() will hit onResult hook
+      restart()
+      refetch()
     }
-  },
-
-  async created () {
-    try {
-      const data = await this.$apollo.query({
-        query: USER_IDENTITY_QUERY
-      })
-      if (data) {
-        this.userIdentity =
-          data.data.userIdentityObject.firstName ||
-          data.data.userIdentityObject.username
-      }
-    } catch (e) {
-      console.log('User not logged in.', e.message)
-    }
-  },
-
-  methods: {},
-  computed: {}
+    provide('doRefetchUserIdentity', doRefetchUserIdentity)
+    provide('userIdentity', userIdentity)
+    return { userIdentity, refetch, doRefetchUserIdentity }
+  }
 }
 </script>
 
