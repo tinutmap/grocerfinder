@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 import graphene
 from graphene_django import DjangoObjectType
-from graphql_jwt.decorators import login_required
+from graphql_jwt.decorators import login_required, superuser_required
 import graphql_jwt
 
 
@@ -18,6 +18,7 @@ class CreateUser(graphene.Mutation):
         password = graphene.String(required=True)
         email = graphene.String(required=True)
 
+    @superuser_required
     def mutate(parent, info, username, password, email):
         user = get_user_model()(username=username, email=email)
         user.set_password(password)
@@ -28,16 +29,13 @@ class CreateUser(graphene.Mutation):
 
 class Query(graphene.ObjectType):
     all_users = graphene.List(UserType)
+    user_identity = graphene.Field(UserType)
 
-    # # without using token argument
-    # me = graphene.Field(UserType)
-    # with using token argument
-    me = graphene.Field(UserType, token=graphene.String())
-
+    @superuser_required
     def resolve_all_users(parent, info):
         return get_user_model().objects.all()
 
-    def resolve_me(parent, info, **kwargs):
+    def resolve_user_identity(parent, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
             raise Exception('Not Logged In')

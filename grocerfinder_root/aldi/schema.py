@@ -109,6 +109,17 @@ def resolve_model_fetch_more(model, cursor, cursor_id, page_size, sort_by_field)
         return None
     # Option 2: https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator
 
+
+class DjangoModelFormMutationLoginRequired(DjangoModelFormMutation):
+    class Meta:
+        abstract = True
+
+    @classmethod
+    @login_required
+    def mutate_and_get_payload(cls, root, info, **input):
+        return super().mutate_and_get_payload(
+            root=root, info=info, **input)
+
 ###############################################################################
 # Category schema
 
@@ -153,29 +164,17 @@ class CategoryInputType(graphene.InputObjectType):
 #         return CategoryCreateMutation(errors=errors, category_instance=category)
 
 
-class CategoryFormCreateMutation(DjangoModelFormMutation, MutationPayLoad):
+class CategoryFormCreateMutation(DjangoModelFormMutationLoginRequired, MutationPayLoad):
     class Meta:
         form_class = CategoryForm
 
     class Input:
         input = CategoryInputType()
 
-    @classmethod
-    @login_required
-    def mutate_and_get_payload(cls, root, info, **input):
-        return super().mutate_and_get_payload(
-            root=root, info=info, **input)
 
-
-class CategoryFormUpdateMutation(DjangoModelFormMutation, MutationPayLoad):
+class CategoryFormUpdateMutation(DjangoModelFormMutationLoginRequired, MutationPayLoad):
     class Meta:
         form_class = CategoryForm
-
-    @classmethod
-    @login_required
-    def mutate_and_get_payload(cls, root, info, **input):
-        return super().mutate_and_get_payload(
-            root=root, info=info, **input)
 
 
 # class CategoryUpdateMutation(MutationPayLoad, graphene.Mutation):
@@ -200,7 +199,6 @@ class CategoryFormUpdateMutation(DjangoModelFormMutation, MutationPayLoad):
 
 
 class CategoryDeleteMutation(MutationPayLoad, graphene.Mutation):
-
     class Arguments:
         id_list = graphene.List(graphene.Int, required=True)
 
@@ -220,7 +218,6 @@ class CategoryDeleteMutation(MutationPayLoad, graphene.Mutation):
 
 
 class ItemType(DjangoObjectType):
-
     class Meta:
         model = Item
         fields = ('name', 'sku', 'upc', 'image', 'category',
@@ -267,18 +264,13 @@ class ItemInputType(graphene.InputObjectType):
 #         return ItemCreateMutation(errors=errors)
 
 
-class ItemFormCreateMutation(DjangoModelFormMutation):
+class ItemFormCreateMutation(DjangoModelFormMutationLoginRequired):
     class Meta:
         form_class = ItemForm
 
     # class Input:
     #     input = ItemInputType()
 
-    @classmethod
-    @login_required
-    def mutate_and_get_payload(cls, root, info, **input):
-        return super().mutate_and_get_payload(
-            root=root, info=info, **input)
 
 # # Obsoleted by ItemFormUpdateMutation
 # class ItemUpdateMutation(MutationPayLoad, graphene.Mutation):
@@ -308,18 +300,12 @@ class ItemFormCreateMutation(DjangoModelFormMutation):
 #         return ItemUpdateMutation(errors=errors, item_instance=item)
 
 
-class ItemFormUpdateMutation(DjangoModelFormMutation, MutationPayLoad):
+class ItemFormUpdateMutation(DjangoModelFormMutationLoginRequired, MutationPayLoad):
     class Meta:
         form_class = ItemForm
 
     # class Input:
     #     input = ItemInputType()
-
-    @classmethod
-    @login_required
-    def mutate_and_get_payload(cls, root, info, **input):
-        return super().mutate_and_get_payload(
-            root=root, info=info, **input)
 
 
 class ItemDeleteMutation(MutationPayLoad, graphene.Mutation):
@@ -331,6 +317,7 @@ class ItemDeleteMutation(MutationPayLoad, graphene.Mutation):
     id_not_exist = graphene.List(graphene.Int)
 
     @classmethod
+    @login_required
     def mutate(cls, parent, info, id_list):
         id_deleted, errors, id_not_exist = delete_entity(Item, id_list)
         return ItemDeleteMutation(id_deleted=id_deleted,

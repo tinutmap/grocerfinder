@@ -4,8 +4,8 @@ import { useQuery } from '@vue/apollo-composable'
 import { ref } from 'vue'
 
 export const USER_IDENTITY_QUERY = gql`
-  query me {
-    userIdentityObject: me {
+  query user_identity {
+    userIdentity: user_identity {
       username
       firstName: first_name
       lastName: last_name
@@ -21,7 +21,7 @@ export function doUserIdentityQuery () {
   const userIdentity = ref('Guest')
   onResult(result => {
     try {
-      result = result.data.userIdentityObject
+      result = result.data.userIdentity
       userIdentity.value = result.firstName || result.username
       // eslint-disable-next-line no-empty
     } catch (e) { }
