@@ -102,7 +102,7 @@ export default {
         .then(data => this.processMutationData(data.data[formDataId]))
         .catch(e => {
           console.log(e)
-          this.hiddenErrors.push(e)
+          this.hiddenErrors = [e.message]
         })
     },
     updateFormData (key, value) {
