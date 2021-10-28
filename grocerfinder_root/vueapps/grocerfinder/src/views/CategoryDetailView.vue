@@ -1,5 +1,5 @@
 <template>
-  <model-by-id
+  <model-detail-view
     v-if="!loading"
     :MODEL_NAME="MODEL_NAME"
     :formData="formData"
@@ -12,24 +12,21 @@
     :selectOptionData="selectOptionData"
     :formElement="formElement"
     :isNew="isNew"
-  ></model-by-id>
+  ></model-detail-view>
 </template>
 <script>
 import {
-  // categoryByIdQueryData,
   CATEGORY_CREATE_BY_FORM_MUTATION,
   CATEGORY_UPDATE_BY_FORM_MUTATION,
   fetchCategoryById
 } from '../graphql/Category.js'
-// import ModelByIdMixins from './ModelByIdMixins.vue'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getModelIdFromRoute, isModelIdNew } from '../components/Base.js'
-import ModelById from '../components/ModelById.vue'
+import ModelDetailView from '../components/ModelDetailView.vue'
 
 export default {
-  name: 'CategoryById',
-  // mixins: [ModelByIdMixins],
+  name: 'CategoryDetailView',
   setup () {
     const id = getModelIdFromRoute()
     const isNew = isModelIdNew(id)
@@ -66,7 +63,6 @@ export default {
   data: function () {
     return {
       MODEL_NAME: 'Category',
-      // formData: { name: '' },
       MODEL_CREATE_BY_FORM_MUTATION: CATEGORY_CREATE_BY_FORM_MUTATION,
       createMutationFormDataId: 'categoryCreateByForm',
       MODEL_UPDATE_BY_FORM_MUTATION: CATEGORY_UPDATE_BY_FORM_MUTATION,
@@ -76,21 +72,7 @@ export default {
       }
     }
   },
-  components: { ModelById },
-  // async created () {
-  //   if (!this.isNew) {
-  //     this.loading = true
-  //     const data = await categoryByIdQueryData(parseInt(this.id))
-  //     if (data.data) {
-  //       this.formData = data.data
-  //       // this.nonFieldErrors = data.errors;
-  //       this.loading = false
-  //     } else {
-  //       this.$router.replace({ name: 'notFound404' })
-  //     }
-  //   }
-  // },
-  // methods: {},
+  components: { ModelDetailView },
   computed: {
     formDataMutation: function () {
       return this.formData

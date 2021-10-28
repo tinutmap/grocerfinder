@@ -34,7 +34,7 @@ import ModelForm from './ModelForm.vue'
 const _ = require('lodash')
 
 export default {
-  name: 'ModelById',
+  name: 'ModelDetailView',
   data: function () {
     return {
       nonFieldErrors: [],
@@ -77,11 +77,12 @@ export default {
             writable: true
           })
         }
-      } else { // No Error
+      } else {
+        // No Error
         let ok
         if (this.isNew) {
           ok = this.modelNametoLowerCase + ' added OK'
-          // redirect to item/:id/ route
+          // redirect to <model>/:id/ route
           this.$router.replace({
             params: { id: data[this.modelNametoLowerCase].id }
           })

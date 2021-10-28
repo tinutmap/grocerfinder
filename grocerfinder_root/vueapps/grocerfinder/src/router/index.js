@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import ItemListView from '../views/ItemListView.vue'
-import ItemById from '../views/ItemById.vue'
+import ItemDetailView from '../views/ItemDetailView.vue'
 import CategoryListView from '../views/CategoryListView.vue'
-import CategoryById from '../views/CategoryById.vue'
+import CategoryDetailView from '../views/CategoryDetailView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 
 const routes = [
   { path: '/login', component: Login },
   { path: '/', redirect: '/item' },
   { path: '/item', component: ItemListView },
-  { path: '/item/:id', component: ItemById },
+  { path: '/item/:id', component: ItemDetailView },
   { path: '/category', component: CategoryListView },
-  { path: '/category/:id', component: CategoryById },
+  { path: '/category/:id', component: CategoryDetailView },
   { path: '/notFound404', name: 'notFound404', component: NotFound404 },
   // https://next.router.vuejs.org/guide/migration/#removed-star-or-catch-all-routes
   { path: '/:pathMatch(.*)*', name: 'notFound404', component: NotFound404 }
