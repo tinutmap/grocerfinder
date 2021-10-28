@@ -31,15 +31,13 @@ export default {
     LogoutButton
   },
   setup () {
-    const { userIdentity, refetch, restart } = doUserIdentityQuery()
+    const { userIdentity, refetch } = doUserIdentityQuery()
     const doRefetchUserIdentity = () => {
-      // restart() the query so refetch() will hit onResult hook
-      restart()
       refetch()
     }
     provide('doRefetchUserIdentity', doRefetchUserIdentity)
     provide('userIdentity', userIdentity)
-    return { userIdentity, refetch, doRefetchUserIdentity }
+    return { userIdentity, refetch }
   }
 }
 </script>

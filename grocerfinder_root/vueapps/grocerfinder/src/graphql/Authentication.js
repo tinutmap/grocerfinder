@@ -14,7 +14,9 @@ export const USER_IDENTITY_QUERY = gql`
 `
 
 export function doUserIdentityQuery () {
-  const { onResult, refetch, restart, onError } = useQuery(USER_IDENTITY_QUERY)
+  const { onResult, refetch, restart, onError } = useQuery(USER_IDENTITY_QUERY,
+    { fetchPolicy: 'no-cache' }
+  )
   // default value 'Guest' if onResult not run
   const userIdentity = ref('Guest')
   onResult(result => {
@@ -22,7 +24,7 @@ export function doUserIdentityQuery () {
       result = result.data.userIdentityObject
       userIdentity.value = result.firstName || result.username
       // eslint-disable-next-line no-empty
-    } finally { }
+    } catch (e) { }
   })
   onError(_ => {
     // Rest userIdentity to 'Guest' when query fails, e.g. not Logged in or Logged out
