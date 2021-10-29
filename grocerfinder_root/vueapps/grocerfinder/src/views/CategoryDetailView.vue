@@ -20,16 +20,17 @@ import {
   CATEGORY_UPDATE_BY_FORM_MUTATION,
   fetchCategoryById
 } from '../graphql/Category.js'
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { getModelIdFromRoute, isModelIdNew } from '../components/Base.js'
 import ModelDetailView from '../components/ModelDetailView.vue'
 
 export default {
   name: 'CategoryDetailView',
   setup () {
-    const id = getModelIdFromRoute()
-    const isNew = isModelIdNew(id)
+    const route = useRoute()
+    const id = computed(() => getModelIdFromRoute(route))
+    const isNew = computed(() => isModelIdNew(id.value))
     const loading = ref(false)
     const formData = ref({})
     const router = useRouter()
@@ -50,7 +51,7 @@ export default {
       })
     }
     onMounted(() => {
-      if (!isNew) {
+      if (!isNew.value) {
         getCategoryById()
       } else {
         formData.value = {

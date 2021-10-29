@@ -23,14 +23,15 @@ import {
 import { fetchCategoryAll } from '../graphql/Category.js'
 import ModelDetailView from '../components/ModelDetailView.vue'
 import { getModelIdFromRoute, isModelIdNew } from '../components/Base.js'
-import { useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
 
 export default {
   name: 'ItemDetailView',
   setup () {
-    const id = getModelIdFromRoute()
-    const isNew = isModelIdNew(id)
+    const route = useRoute()
+    const id = computed(() => getModelIdFromRoute(route))
+    const isNew = computed(() => isModelIdNew(id.value))
     const loading = ref(false)
     const formData = ref({})
     const selectOptionData = ref({})
@@ -56,7 +57,7 @@ export default {
       loading.value = false
     }
     onMounted(() => {
-      if (!isNew) {
+      if (!isNew.value) {
         getItemById()
       } else {
         formData.value = {
