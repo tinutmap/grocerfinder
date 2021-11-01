@@ -1,6 +1,6 @@
 <template>
   <div>
-    <model-form
+    <model-detail-form-view
       :modelName="modelNametoLowerCase"
       :formData="formData"
       @update:formData="updateFormData"
@@ -25,16 +25,16 @@
           updateMutationFormDataId
         )
       "
-    ></model-form>
+    ></model-detail-form-view>
   </div>
 </template>
 <script>
-import ModelForm from './ModelForm.vue'
+import ModelDetailFormView from './ModelDetailFormView.vue'
 
 const _ = require('lodash')
 
 export default {
-  name: 'ModelById',
+  name: 'ModelDetailView',
   data: function () {
     return {
       nonFieldErrors: [],
@@ -44,7 +44,7 @@ export default {
     }
   },
   components: {
-    ModelForm
+    ModelDetailFormView
   },
   props: [
     'MODEL_NAME',
@@ -77,11 +77,12 @@ export default {
             writable: true
           })
         }
-      } else { // No Error
+      } else {
+        // No Error
         let ok
         if (this.isNew) {
           ok = this.modelNametoLowerCase + ' added OK'
-          // redirect to item/:id/ route
+          // redirect to <model>/:id/ route
           this.$router.replace({
             params: { id: data[this.modelNametoLowerCase].id }
           })
@@ -101,7 +102,7 @@ export default {
         .then(data => this.processMutationData(data.data[formDataId]))
         .catch(e => {
           console.log(e)
-          this.hiddenErrors.push(e)
+          this.hiddenErrors = [e.message]
         })
     },
     updateFormData (key, value) {

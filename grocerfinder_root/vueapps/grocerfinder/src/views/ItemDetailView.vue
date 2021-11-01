@@ -1,5 +1,5 @@
 <template>
-  <model-by-id
+  <model-detail-view
     v-if="!loading"
     :MODEL_NAME="MODEL_NAME"
     :formData="formData"
@@ -12,7 +12,7 @@
     :selectOptionData="selectOptionData"
     :formElement="formElement"
     :isNew="isNew"
-  ></model-by-id>
+  ></model-detail-view>
 </template>
 <script>
 import {
@@ -21,20 +21,20 @@ import {
   doItemFetchById
 } from '../graphql/Item.js'
 import { fetchCategoryAll } from '../graphql/Category.js'
-import ModelById from '../components/ModelById.vue'
+import ModelDetailView from '../components/ModelDetailView.vue'
 import { getModelIdFromRoute, isModelIdNew } from '../components/Base.js'
-import { useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
 
 export default {
-  name: 'ItemById',
+  name: 'ItemDetailView',
   setup () {
-    const id = getModelIdFromRoute()
-    const isNew = isModelIdNew(id)
+    const route = useRoute()
+    const id = computed(() => getModelIdFromRoute(route))
+    const isNew = computed(() => isModelIdNew(id.value))
     const loading = ref(false)
     const formData = ref({})
     const selectOptionData = ref({})
-    const itemById = ref({})
     const router = useRouter()
 
     const getItemById = async () => {
@@ -57,7 +57,7 @@ export default {
       loading.value = false
     }
     onMounted(() => {
-      if (!isNew) {
+      if (!isNew.value) {
         getItemById()
       } else {
         formData.value = {
@@ -79,7 +79,6 @@ export default {
       formData,
       getItemById,
       loading,
-      itemById,
       getCategoryAll,
       selectOptionData
     }
@@ -102,7 +101,7 @@ export default {
     }
   },
   components: {
-    ModelById
+    ModelDetailView
   },
   computed: {
     formDataMutation: function () {

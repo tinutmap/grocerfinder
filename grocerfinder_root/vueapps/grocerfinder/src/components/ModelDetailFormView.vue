@@ -46,25 +46,33 @@
         class="form-control"
         v-bind:class="{ 'is-invalid': fieldErrors[key] }"
       />
-      <select
+      <div
         v-else-if="formElement[key] === 'select-option'"
-        :value="formData[key].id"
-        @input="$emit('update:formData', key+'.id', $event.target.value)"
-        :id="'field-' + key"
-        class="form-control"
-        required
+        class=" input-group"
       >
-        <option disabled v-if="isNew" value="">--Select {{ key }}--</option>
-        <option
-          v-for="i in selectOptionData[key]"
-          v-bind:key="i.id"
-          v-bind:value="i.id"
-          v-bind:selected="i.id === formData[key].id"
-          v-bind:class="{ 'is-invalid': fieldErrors[key] }"
+        <select
+          :value="formData[key].id"
+          @input="$emit('update:formData', key + '.id', $event.target.value)"
+          :id="'field-' + key"
+          class="form-control"
+          required
         >
-          {{ i.name }}
-        </option>
-      </select>
+          <option disabled v-if="isNew" value="">--Select {{ key }}--</option>
+          <option
+            v-for="i in selectOptionData[key]"
+            v-bind:key="i.id"
+            v-bind:value="i.id"
+            v-bind:selected="i.id === formData[key].id"
+            v-bind:class="{ 'is-invalid': fieldErrors[key] }"
+          >
+            {{ i.name }}
+          </option>
+        </select>
+        <create-button @click="createNewKeyData(key)" />
+        <update-button @click="updateKeyDataById(key, formData[key].id)" />
+        <list-view-button @click="listViewKey(key)" />
+        <delete-button @click="listViewKey(key)" />
+      </div>
     </div>
     <input
       type="button"
@@ -84,12 +92,15 @@
 </template>
 <script>
 import { camelCaseToPascalCase } from './Base.js'
-export default {
-  name: 'ModelForm',
-  data: function () {
-    return {
+import CreateButton from './button/CreateButton.vue'
+import ListViewButton from './button/ListViewButton.vue'
+import UpdateButton from './button/UpdateButton.vue'
+import DeleteButton from './button/DeleteButton.vue'
 
-    }
+export default {
+  name: 'ModelDetailFormView',
+  data: function () {
+    return {}
   },
   props: {
     modelName: {
@@ -127,9 +138,20 @@ export default {
       type: Object
     }
   },
-  emits: ['update:formData', 'update', 'create'],
+  emits: ['update:formData', 'update', 'create', 'deleteKeyDataById'],
   methods: {
-    camelCaseToPascalCase
-  }
+    camelCaseToPascalCase,
+    createNewKeyData (key) {
+      // this.$router.push('/' + key + '/create')
+      window.open('/' + key + '/create', '', 'fullscreen=false')
+    },
+    listViewKey (key) {
+      window.open('/' + key, '', 'fullscreen=false')
+    },
+    updateKeyDataById (key, id) {
+      window.open('/' + key + '/' + id, '', 'fullscreen=false')
+    }
+  },
+  components: { CreateButton, ListViewButton, UpdateButton, DeleteButton }
 }
 </script>
