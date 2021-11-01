@@ -1,6 +1,6 @@
 <template>
   <div>
-    <model-form
+    <model-detail-form-view
       :modelName="modelNametoLowerCase"
       :formData="formData"
       @update:formData="updateFormData"
@@ -25,11 +25,11 @@
           updateMutationFormDataId
         )
       "
-    ></model-form>
+    ></model-detail-form-view>
   </div>
 </template>
 <script>
-import ModelForm from './ModelForm.vue'
+import ModelDetailFormView from './ModelDetailFormView.vue'
 
 const _ = require('lodash')
 
@@ -44,7 +44,7 @@ export default {
     }
   },
   components: {
-    ModelForm
+    ModelDetailFormView
   },
   props: [
     'MODEL_NAME',
