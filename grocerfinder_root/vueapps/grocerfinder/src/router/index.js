@@ -5,10 +5,11 @@ import ItemDetailView from '../views/ItemDetailView.vue'
 import CategoryListView from '../views/CategoryListView.vue'
 import CategoryDetailView from '../views/CategoryDetailView.vue'
 import NotFound404 from '../views/NotFound404.vue'
+import HelloWorld from '../components/HelloWorld.vue'
 
 const routes = [
   { path: '/login', component: Login },
-  { path: '/', redirect: '/item' },
+  { path: '/', component: HelloWorld },
   { path: '/item', component: ItemListView },
   { path: '/item/:id', component: ItemDetailView },
   { path: '/category', component: CategoryListView },
