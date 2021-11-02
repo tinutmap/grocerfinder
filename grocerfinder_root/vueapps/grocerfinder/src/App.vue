@@ -2,7 +2,10 @@
   <div>
     <header>
       <router-link to="/">
-        <h1>Grocerfinder Home</h1>
+        <img src="../public/favicon_title_2.png" alt="" />
+      </router-link>
+      <router-link to="/item">
+        <h2>Item</h2>
       </router-link>
       <router-link to="/category">
         <h2>Category</h2>
@@ -25,10 +28,12 @@
 import LogoutButton from './components/LogoutButton.vue'
 import { doUserIdentityQuery } from './graphql/Authentication.js'
 import { provide } from 'vue'
+// import HelloWorld from './components/HelloWorld.vue'
 export default {
   name: 'grocerfinder',
   components: {
     LogoutButton
+    // HelloWorld
   },
   setup () {
     const { userIdentity, refetch } = doUserIdentityQuery()
