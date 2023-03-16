@@ -43,4 +43,5 @@ COPY ./entrypoint.sh ${PROJECT_DIR}
 COPY ./grocerfinder_root .
 
 # run entrypoint.sh
+CMD ["dos2unix", './entrypoint.sh']
 ENTRYPOINT [ "./entrypoint.sh" ]
