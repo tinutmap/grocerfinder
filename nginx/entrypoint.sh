@@ -11,5 +11,7 @@ fi
 
 # auto renew cert
 SLEEPTIME=$(awk 'BEGIN{srand(); print int(rand()*(3600+1))}'); \
-echo "0 0,12 * * * sleep $SLEEPTIME && certbot renew --deploy-hook \"nginx -s reload\"" \
+echo "0 0,12 * * * sleep $SLEEPTIME && certbot renew --deploy-hook \"nginx -s reload\" && echo \"certbot cron job run at \$(date)\" | tee -a ~/cron-test.txt" \
 | tee -a /etc/crontabs/root > /dev/null
+
+crond -b -l 2
