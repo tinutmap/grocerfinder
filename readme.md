@@ -47,6 +47,8 @@ This project is also a learning/tinkering/proven ground for the following:
 git clone https://github.com/tinutmap/grocerfinder.git
 ```
 
+- Postgres Database setup: https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04
+
 - Django setup (backend):
 
   - In terminal, change directory to project root directory (`/grocerfinder`), create new virtual environment and install the required packages by:
