@@ -16,6 +16,7 @@ docker context use remote
 cd ./grocerfinder_root/vueapps/grocerfinder/ &&
 npm run build -- --dest ../../../nginx/dist &&
 cd ../../../
+dos2unix ./nginx/entrypoint.sh # Can't add to ./nginx/Dockerfile, will break nginx docker image startup
 
 # graciously stop running containers
 docker-compose down
